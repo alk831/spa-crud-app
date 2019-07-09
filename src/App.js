@@ -5,13 +5,14 @@ import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { AuthorizationProvider } from './context/Authorization';
 import { Header } from './components/Header';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 export const App = () => {
   return (
     <Router>
       <AuthorizationProvider>
         <Header />
-        <Route path="/" exact component={Home} />
+        <ProtectedRoute path="/" exact component={Home} />
         <Route path="/login/" component={Login} />
       </AuthorizationProvider>
     </Router>
