@@ -8,18 +8,6 @@ export const Login = () => {
   
   async function handleLogin(event) {
     event.preventDefault();
-    if (isLoggingIn) return;
-
-    try {
-      setIsLoggingIn(true);
-
-      const response = await fetch('');
-      const data = await response.json();
-    } catch(err) {
-      setError(err);
-    } finally {
-      setIsLoggingIn(false);
-    }
   }
 
   return (

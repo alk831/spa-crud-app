@@ -8,6 +8,7 @@ import { Login } from './pages/Login';
 import { AuthorizationProvider } from './context/Authorization';
 import { Header } from './components/Header';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { Register } from './pages/Register';
 
 export const App = () => {
   return (
@@ -17,6 +18,7 @@ export const App = () => {
           <Header />
           <ProtectedRoute path="/" exact component={Home} />
           <Route path="/login/" component={Login} />
+          <Route path="/register/" component={Register} />
         </AuthorizationProvider>
       </Provider>
     </Router>

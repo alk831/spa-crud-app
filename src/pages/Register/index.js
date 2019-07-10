@@ -1,34 +1,47 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import firebase from 'firebase';
-import { AuthorizationContext } from '../../context/Authorization';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../../store/actions';
+
+function RenderError({ isLoading, validationError, serverError }) {
+  if (!isLoading) {
+    if (serverError) {
+      return serverError;
+    }
+    if (validationError) {
+      return validationError;
+    }
+  }
+  return null;
+}
 
 const Register = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isRegistering, setIsRegistering] = useState(false);
-  const [error, setError] = useState(null);
-  const [, setAuthData] = useContext(AuthorizationContext);
-  
+  const [validationErr, setValidationErr] = useState(null);
+  const dispatch = useDispatch();
+  const { error, isRegisteringIn } = useSelector(state => state.authorization);
+
   async function handleRegister(event) {
     event.preventDefault();
-    if (isRegistering) return;
+    const emailMinChars = 3;
+    const passwordMinChars = 6;
 
-    try {
-      setIsRegistering(true);
+    if (validationErr) {
+      setValidationErr(null);
+    }
 
-      const credentials = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
+    if (email.length < emailMinChars) {
+      return setValidationErr(`Email musi mieć przynajmniej ${emailMinChars} znaków.`);
+    }
+    if (password.length < passwordMinChars) {
+      return setValidationErr(`Hasło musi mieć przynajmniej ${passwordMinChars} znaków.`);
+    }
 
-      setAuthData(credentials);
+    const result = await dispatch(register(email, password));
 
+    if (result) {
       history.push('/');
-
-    } catch(err) {
-      setError(err.message);
-    } finally {
-      setIsRegistering(false);
     }
   }
 
@@ -51,6 +64,11 @@ const Register = ({ history }) => {
             onChange={e => setPassword(e.target.value)}
           />
         </label>
+        <RenderError
+          isLoading={isRegisteringIn}
+          serverError={error}
+          validationError={validationErr}
+        />
         <button type="submit">
           Zarejestruj się
         </button>

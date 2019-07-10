@@ -4,6 +4,7 @@ const initialState = {
   isLoggingIn: false,
   isLoggedIn: false,
   isRegisteringIn: false,
+  user: null,
   error: null,
   token: null,
   tokenExp: null,
@@ -37,6 +38,7 @@ export function authorizationReducer(
     case REGISTER_SUCCEEDED: return {
       ...state,
       ...action.payload,
+      user: action.payload,
       isRegisteringIn: false,
       isLoggedIn: true
     }

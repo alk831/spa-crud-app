@@ -38,9 +38,9 @@ export const registerRequested = () => ({
   type: REGISTER_REQUESTED
 });
 
-export const registerSucceeded = (payload) => ({
+export const registerSucceeded = (user) => ({
   type: REGISTER_SUCCEEDED,
-  payload
+  user
 });
 
 export const registerFailed = (error) => ({
@@ -52,13 +52,15 @@ export const register = (email, password) => async (dispatch) => {
   try {
     dispatch(registerRequested());
 
-    const credentials = await firebase
+    const { user } = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
 
-    dispatch(registerSucceeded(credentials));
+    dispatch(registerSucceeded(user));
+    return true;
 
   } catch(err) {
     dispatch(registerFailed(err));
+    return false;
   }
 }
