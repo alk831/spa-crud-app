@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { minEmailLength, minPasswordLength } from '../../common/consts';
+import { login } from '../../store/actions';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');

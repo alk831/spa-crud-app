@@ -21,7 +21,7 @@ export const login = (email, password) => async (dispatch) => {
 
     const credentials = await firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password);
+      .signInWithEmailAndPassword(email, password);
 
     dispatch(loginSucceeded(credentials));
     return true;
