@@ -1,24 +1,47 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { minEmailLength, minPasswordLength } from '../../common/consts';
 
-export const Login = () => {
-  const [login, setLogin] = useState('');
+const Login = ({ history }) => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const [error, setError] = useState(null);
+  const [validationErr, setValidationErr] = useState(null);
+  const dispatch = useDispatch();
+  const { isLoggingIn, error } = useSelector(state => state.authorization);
   
   async function handleLogin(event) {
     event.preventDefault();
+    if (isLoggingIn) {
+      return;
+    }
+    if (validationErr) {
+      setValidationErr(null);
+    }
+
+    if (email.length < minEmailLength) {
+      return setValidationErr(`Email musi mieć przynajmniej ${minEmailLength} znaków.`);
+    }
+    if (password.length < minPasswordLength) {
+      return setValidationErr(`Hasło musi mieć przynajmniej ${minPasswordLength} znaków`);
+    }
+
+    const result = await dispatch(login(email, password));
+  
+    if (result) {
+      history.push('/');
+    }
   }
 
   return (
     <div>
       <form onSubmit={handleLogin}>
         <label>
-          Login:
+          Email:
           <input
-            type="text"
-            value={login}
-            onChange={e => setLogin(e.target.value)}
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           />
         </label>
         <label>
@@ -29,6 +52,9 @@ export const Login = () => {
             onChange={e => setPassword(e.target.value)}
           />
         </label>
+        {!isLoggingIn && (
+          error ? error : validationErr
+        )}
         <button type="submit">
           Zaloguj się
         </button>
@@ -36,3 +62,7 @@ export const Login = () => {
     </div>
   );
 }
+
+const LoginWithRouter = withRouter(Login);
+
+export { LoginWithRouter as Login };

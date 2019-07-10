@@ -2,18 +2,7 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../store/actions';
-
-function RenderError({ isLoading, validationError, serverError }) {
-  if (!isLoading) {
-    if (serverError) {
-      return serverError;
-    }
-    if (validationError) {
-      return validationError;
-    }
-  }
-  return null;
-}
+import { minEmailLength, minPasswordLength } from '../../common/consts';
 
 const Register = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -24,17 +13,17 @@ const Register = ({ history }) => {
 
   async function handleRegister(event) {
     event.preventDefault();
-    const emailMinChars = 3;
-    const passwordMinChars = 6;
-
+    if (isRegisteringIn) {
+      return;
+    }
     if (validationErr) {
       setValidationErr(null);
     }
 
-    if (email.length < emailMinChars) {
+    if (email.length < minEmailLength) {
       return setValidationErr(`Email musi mieć przynajmniej ${emailMinChars} znaków.`);
     }
-    if (password.length < passwordMinChars) {
+    if (password.length < minPasswordLength) {
       return setValidationErr(`Hasło musi mieć przynajmniej ${passwordMinChars} znaków.`);
     }
 
@@ -64,11 +53,9 @@ const Register = ({ history }) => {
             onChange={e => setPassword(e.target.value)}
           />
         </label>
-        <RenderError
-          isLoading={isRegisteringIn}
-          serverError={error}
-          validationError={validationErr}
-        />
+        {!isRegisteringIn && (
+          error ? error : validationErr
+        )}
         <button type="submit">
           Zarejestruj się
         </button>

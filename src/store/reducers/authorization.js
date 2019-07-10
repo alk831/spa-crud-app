@@ -37,7 +37,6 @@ export function authorizationReducer(
     }
     case REGISTER_SUCCEEDED: return {
       ...state,
-      ...action.payload,
       user: action.payload,
       isRegisteringIn: false,
       isLoggedIn: true

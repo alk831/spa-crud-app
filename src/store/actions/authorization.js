@@ -24,9 +24,11 @@ export const login = (email, password) => async (dispatch) => {
       .createUserWithEmailAndPassword(email, password);
 
     dispatch(loginSucceeded(credentials));
+    return true;
     
   } catch (err) {
     dispatch(loginFailed(err));
+    return false;   
   }
 }
 
@@ -40,7 +42,7 @@ export const registerRequested = () => ({
 
 export const registerSucceeded = (user) => ({
   type: REGISTER_SUCCEEDED,
-  user
+  payload: user
 });
 
 export const registerFailed = (error) => ({
