@@ -8,11 +8,11 @@ const Login = ({ history }) => {
   const [password, setPassword] = useState('');
   const [validationErr, setValidationErr] = useState(null);
   const dispatch = useDispatch();
-  const { isLoggingIn, error } = useSelector(state => state.authorization);
+  const { isLoading, error } = useSelector(state => state.authorization);
   
   async function handleLogin(event) {
     event.preventDefault();
-    if (isLoggingIn) {
+    if (isLoading) {
       return;
     }
     if (validationErr) {
@@ -52,7 +52,7 @@ const Login = ({ history }) => {
             onChange={e => setPassword(e.target.value)}
           />
         </label>
-        {!isLoggingIn && (
+        {!isLoading && (
           error ? error : validationErr
         )}
         <button type="submit">

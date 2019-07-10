@@ -1,13 +1,10 @@
 import { LOGOUT, LOGIN_REQUESTED, LOGIN_SUCCEEDED, LOGIN_FAILED, REGISTER_REQUESTED, REGISTER_SUCCEEDED, REGISTER_FAILED } from '../consts';
 
 const initialState = {
-  isLoggingIn: false,
   isLoggedIn: false,
-  isRegisteringIn: false,
-  user: null,
+  isLoading: false,
+  user: {},
   error: null,
-  token: null,
-  tokenExp: null,
   role: 'guest'
 }
 
@@ -18,32 +15,32 @@ export function authorizationReducer(
   switch(action.type) {
     case LOGIN_REQUESTED: return {
       ...state,
-      isLoggingIn: true
+      isLoading: true
     }
     case LOGIN_SUCCEEDED: return {
       ...state,
       ...action.payload,
       isLoggedIn: true,
-      isLoggingIn: false,
+      isLoading: false,
     }
     case LOGIN_FAILED: return {
       ...state,
-      isLoggingIn: false,
+      isLoading: false,
       error: action.error.message
     }
     case REGISTER_REQUESTED: return {
       ...state,
-      isRegisteringIn: true
+      isLoading: true
     }
     case REGISTER_SUCCEEDED: return {
       ...state,
       user: action.payload,
-      isRegisteringIn: false,
+      isLoading: false,
       isLoggedIn: true
     }
     case REGISTER_FAILED: return {
       ...state,
-      isRegisteringIn: false,
+      isLoading: false,
       error: action.error.message
     }
     case LOGOUT: return initialState;

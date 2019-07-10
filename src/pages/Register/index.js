@@ -9,11 +9,11 @@ const Register = ({ history }) => {
   const [password, setPassword] = useState('');
   const [validationErr, setValidationErr] = useState(null);
   const dispatch = useDispatch();
-  const { error, isRegisteringIn } = useSelector(state => state.authorization);
+  const { error, isLoading } = useSelector(state => state.authorization);
 
   async function handleRegister(event) {
     event.preventDefault();
-    if (isRegisteringIn) {
+    if (isLoading) {
       return;
     }
     if (validationErr) {
@@ -53,7 +53,7 @@ const Register = ({ history }) => {
             onChange={e => setPassword(e.target.value)}
           />
         </label>
-        {!isRegisteringIn && (
+        {!isLoading && (
           error ? error : validationErr
         )}
         <button type="submit">
