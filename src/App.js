@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
@@ -10,11 +12,13 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 export const App = () => {
   return (
     <Router>
-      <AuthorizationProvider>
-        <Header />
-        <ProtectedRoute path="/" exact component={Home} />
-        <Route path="/login/" component={Login} />
-      </AuthorizationProvider>
+      <Provider store={store}>
+        <AuthorizationProvider>
+          <Header />
+          <ProtectedRoute path="/" exact component={Home} />
+          <Route path="/login/" component={Login} />
+        </AuthorizationProvider>
+      </Provider>
     </Router>
   );
 }
