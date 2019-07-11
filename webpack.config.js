@@ -32,7 +32,8 @@ module.exports = {
         test: /\.scss$/,
         use: [
           {
-            loader: isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader
+            loader: isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+            options: { hmr: false }
           },
           {
             loader: 'css-loader',
@@ -51,7 +52,8 @@ module.exports = {
       template: './src/public/index.html'
     }),
     new MiniCssExtractPlugin({
-      filename: isDevelopment ? '[name].css' : '[name].[hash].css'
+      filename: isDevelopment ? '[name].css' : '[name].[hash].css',
+      chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css'
     }),
     new Dotenv({
       safe: true

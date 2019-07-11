@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 import rootReducer from './reducers';
+import { isDevelopment } from '../common/consts';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -12,11 +13,13 @@ export function configureStore() {
     )
   );
 
-  if (module.hot) {
-    module.hot.accept('./reducers', () => {
-      const nextRootReducer = require('./reducers/index').default;
-      store.replaceReducer(nextRootReducer);
-    });
+  if (isDevelopment) {
+    if (module.hot) {
+      module.hot.accept('./reducers', () => {
+        const nextRootReducer = require('./reducers').default;
+        store.replaceReducer(nextRootReducer);
+      });
+    }
   }
 
   return store;
