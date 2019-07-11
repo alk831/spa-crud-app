@@ -1,16 +1,23 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
-import { authorizationReducer as authorization } from './reducers/authorization';
-
-const reducers = combineReducers({
-  authorization
-});
+import rootReducer from './reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const store = createStore(
-  reducers,
-  composeEnhancers(
-    applyMiddleware(reduxThunk)
-  )
-);
+export function configureStore() {
+  const store = createStore(
+    rootReducer,
+    composeEnhancers(
+      applyMiddleware(reduxThunk)
+    )
+  );
+
+  if (module.hot) {
+    module.hot.accept('./reducers', () => {
+      const nextRootReducer = require('./reducers/index').default;
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+
+  return store;
+}

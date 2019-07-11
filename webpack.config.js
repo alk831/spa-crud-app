@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
@@ -13,7 +14,10 @@ module.exports = {
     filename: '[name].bundle.js'
   },
   resolve: {
-    extensions: ['.js', '.scss']
+    extensions: ['.js', '.scss'],
+    alias: {
+      'react-dom': isDevelopment ? '@hot-loader/react-dom' : 'react-dom'
+    }
   },
   module: {
     rules: [
@@ -51,12 +55,14 @@ module.exports = {
     }),
     new Dotenv({
       safe: true
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
     publicPath: '/',
     historyApiFallback: true,
     contentBase: './src',
-    hot: true
+    hot: true,
+    inline: true
   }
 }
