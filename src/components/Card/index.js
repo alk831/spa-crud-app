@@ -3,7 +3,9 @@ import css from './style.scss';
 import PropTypes from 'prop-types';
 
 export const Card = ({
-  card
+  card,
+  onLiked,
+  onSkipped
 }) => {
   return (
     <div className={css.container}>
@@ -13,10 +15,18 @@ export const Card = ({
         className={css.image}
         alt={`${card.title} by ${card.author}`}
       />
+      <button onClick={onLiked}>
+        Like
+      </button>
+      <button onClick={onSkipped}>
+        Skip
+      </button>
     </div>
   );
 }
 
 Card.propTypes = {
-  card: PropTypes.object.isRequired
+  card: PropTypes.object.isRequired,
+  onLiked: PropTypes.func.isRequired,
+  onSkipped: PropTypes.func.isRequired
 }

@@ -1,3 +1,4 @@
+/** Authorization */
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
@@ -5,3 +6,6 @@ export const LOGOUT = 'LOGOUT';
 export const REGISTER_REQUESTED = 'REGISTER_REQUESTED';
 export const REGISTER_SUCCEEDED = 'REGISTER_SUCCEEDED';
 export const REGISTER_FAILED = 'REGISTER_FAILED';
+/** Cards */
+export const CARD_LIKED = 'CARD_LIKED';
+export const CARD_DISLIKED = 'CARD_DISLIKED';
