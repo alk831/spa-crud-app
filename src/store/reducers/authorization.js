@@ -6,7 +6,8 @@ const initialState = {
   isLoading: false,
   user: {},
   error: null,
-  role: 'guest'
+  role: null,
+  roles: []
 }
 
 export function authorizationReducer(
