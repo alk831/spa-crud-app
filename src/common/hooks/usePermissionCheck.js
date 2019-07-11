@@ -8,6 +8,10 @@ export function usePermissionCheck({
   const userRole = useSelector(state => state.authorization.user.role);
   const roles = useSelector(state => state.authorization.roles);
 
+  if (!roles.length && userRole != null) {
+    return false;
+  }
+
   const userRoleIndex = roles.findIndex(role => role === userRole);
   const allowedRoleIndex = roles.findIndex(role => role === allowedRole);
 

@@ -2,7 +2,6 @@ import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './assets/main.scss';
-import { useSelector } from 'react-redux';
 
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
@@ -15,30 +14,33 @@ import { SafeRoute } from './components/Route';
 import { PermissionGroup } from './components/PermissionGroup';
 
 export const App = () => {
-  const isLoggedIn = useSelector(state => state.authorization.isLoggedIn);
   return (
     <Router>
       <AuthorizationProvider>
         <Header />
         <Switch>
-          <PermissionGroup
-            role={null}
-            strictRole={true}
-            redirectTo="/home"
-            noInherit
-          >
-            <Route path="/login/" component={Login} />
-            <Route path="/register/" component={Register} />
+          {/* <RouteY path="/" exact component={Home}/> */}
+          <PermissionGroup role={null} redirectTo="/login">
+            <Route path="/" component={Home} />
+            <Route path="/my-cards/" component={MyCards} />
           </PermissionGroup>
-          <SafeRoute
+          <PermissionGroup role={'admin'} redirectTo="/" strict>
+            <Route path="/register/" component={Register} />
+            <Route path="/login/" component={Login} />
+          </PermissionGroup>
+          {/* <SafeRoute
             path="/login/"
             component={Login}
             isAllowed={!isLoggedIn}
-            redirectTo="/home"
-          />
-          <Route path="/register/" component={Register} />
-          <ProtectedRoute path="/" exact component={Home} />
-          <ProtectedRoute path="/my-cards/" component={MyCards} />
+            redirectTo="/"
+          /> */}
+          {/* <ProtectedRoute
+            path="/"
+            exact
+            component={Home}
+            isAllowed={isLoggedIn}
+            redirectTo="/login"
+          /> */}
         </Switch>
       </AuthorizationProvider>
     </Router>

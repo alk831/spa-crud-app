@@ -1,46 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
+import { usePermissionCheck } from '../../common/hooks';
 
-import { SafeRoute } from '../Route';
 
 export const PermissionGroup = ({
-  allowUnlogged,
   role: allowedRole,
-  inheritRole = true,
-  noInherit,
-  strictRole = false,
+  strict: strictRole,
   redirectTo,
   children
 }) => {
-  const isLoggedIn = useSelector(state => state.authorization.isLoggedIn);
-  const userRole = useSelector(state => state.authorization.user.role);
-  const roles = useSelector(state => state.authorization.roles);
+  const hasPermissions = usePermissionCheck({ allowedRole, strictRole });
 
-  return React.Children.map(children, child => (
-    <SafeRoute
-      {...child.props.source}
-      render={({
-        component: Component,
-        ...props
-      }) => isAllowed ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to={'/home'} />
-      )}
-    />
-  ));
+  return React.Children.map(children, child => {
+    const { component: Component, ...props } = child.props;
+    return (
+      <Route
+        {...props}
+        render={props => hasPermissions ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={redirectTo} />
+        )}
+      />
+    )
+  });
 }
 
 PermissionGroup.propTypes = {
-  allowUnlogged: PropTypes.bool,
+  /** Role that will have access to this route/s. */
   role: PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.oneOf([null]).isRequired
   ]),
-  /** Determines whenever user with higher role can access  */
-  noInherit: PropTypes.bool,
-  inheritRole: PropTypes.bool,
-  strictRole: PropTypes.bool,
-  // redirectTo: PropTypes.string.isRequired
+  /**
+   * Disables/enables group permission inheritance.
+   * If set to true, it will require to have exactly the same group as provided.
+   */
+  strict: PropTypes.bool,
+  /** Adress of the page that user will be redirected to, if He has no permissions. */
+  redirectTo: PropTypes.string.isRequired
 }
