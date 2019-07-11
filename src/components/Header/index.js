@@ -14,6 +14,9 @@ export const Header = () => {
         <li>
           <Link to="/register">Rejestracja</Link>
         </li>
+        <li>
+          <Link to="/my-cards">Polubione karty</Link>
+        </li>
       </ul>
     </nav>
   );

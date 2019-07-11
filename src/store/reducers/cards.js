@@ -16,7 +16,7 @@ export function cardsReducer(
     case CARD_DISLIKED: return {
       ...state,
       liked: state.liked.filter(card => 
-        card.id === action.meta.id
+        card.id !== action.meta.id
       )
     }
     default: return state;
