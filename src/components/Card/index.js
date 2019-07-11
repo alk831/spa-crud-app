@@ -7,9 +7,10 @@ export const Card = ({
 }) => {
   return (
     <div className={css.container}>
-      {card.title}
+      <p>{card.title}</p>
       <img
         src={card.img}
+        className={css.image}
         alt={`${card.title} by ${card.author}`}
       />
     </div>

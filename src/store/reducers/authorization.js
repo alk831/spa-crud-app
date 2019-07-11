@@ -1,7 +1,8 @@
 import { LOGOUT, LOGIN_REQUESTED, LOGIN_SUCCEEDED, LOGIN_FAILED, REGISTER_REQUESTED, REGISTER_SUCCEEDED, REGISTER_FAILED } from '../consts';
+import { isDevelopment } from '../../common/consts';
 
 const initialState = {
-  isLoggedIn: false,
+  isLoggedIn: isDevelopment,
   isLoading: false,
   user: {},
   error: null,
