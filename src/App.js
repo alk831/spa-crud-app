@@ -22,15 +22,15 @@ export const App = () => {
           <ProtectedRoute
             path="/login/"
             component={Login}
-            role={null}
-            strictRole
+            group={null}
+            strictGroup
             redirectTo="/"
           />
           <ProtectedRoute
             path="/"
             exact
             component={Home}
-            role="user"
+            group="user"
             redirectTo="/login"
           />
           {/* <PermissionGroup role={null} redirectTo="/login">

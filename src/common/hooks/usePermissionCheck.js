@@ -1,22 +1,30 @@
 import { useSelector } from 'react-redux';
 
-export function usePermissionCheck(allowedRole, strictRole = false) {
-  const userRole = useSelector(state => state.authorization.role);
-  const roles = useSelector(state => state.authorization.roles);
+/**
+ * Checks permission status.
+ * @param {null|string} allowedGroup Name of the group that has permissions for this resource.
+ * @param {boolean} strictGroup If set to true, it disables group permission inheritance.
+ * @returns {boolean} Permission status. 
+ */
+export function usePermissionCheck(allowedGroup, strictGroup = false) {
+  const userGroup = useSelector(state => state.authorization.group);
+  const groups = useSelector(state => state.authorization.groups);
 
-  if (userRole === allowedRole) {
+  if (userGroup === allowedGroup) {
     return true;
   }
 
-  if (!roles.length) {
+  if (!groups.length) {
     return false;
   }
 
-  const userRoleIndex = roles.findIndex(role => role === userRole);
-  const allowedRoleIndex = roles.findIndex(role => role === allowedRole);
+  if (!strictGroup) {
+    const userGroupIndex = groups.findIndex(group => group === userGroup);
+    const allowedGroupIndex = groups.findIndex(group => group === allowedGroup);
 
-  if (!strictRole && userRoleIndex >= allowedRoleIndex) {
-    return true;
+    if (userGroupIndex >= allowedGroupIndex) {
+      return true;
+    }
   }
 
   return false;
