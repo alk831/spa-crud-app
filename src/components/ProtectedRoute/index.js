@@ -5,16 +5,17 @@ import PropTypes from 'prop-types';
 
 export const ProtectedRoute = ({
   role: allowedRole,
-  strict: strictRole,
+  strictRole = true,
   component: Component,
   redirectTo,
   ...props
 }) => {
-  const hasPermissions = usePermissionCheck({ allowedRole, strictRole });
+  const hasPermissions = usePermissionCheck(allowedRole, strictRole);
+
   return (
     <Route
       {...props}
-      render={props => true ? (
+      render={props => hasPermissions ? (
         <Component {...props} />
       ) : (
         <Redirect to={redirectTo} />
@@ -33,7 +34,7 @@ ProtectedRoute.propTypes = {
    * Disables/enables group permission inheritance.
    * If set to true, it will require to have exactly the same group as provided.
    */
-  strict: PropTypes.bool,
+  strictRole: PropTypes.bool,
   /** Adress of the page that user will be redirected to, if He has no permissions. */
   redirectTo: PropTypes.string.isRequired
 }
