@@ -18,16 +18,32 @@ export const App = () => {
     <Router>
       <AuthorizationProvider>
         <Header />
-        <Switch>
+        {/* <Switch> */}
+          {/* <ProtectedRoute
+            path="/login/"
+            component={Login}
+            role={null}
+            redirectTo="/"
+            strict
+          /> */}
+          {/* <ProtectedRoute
+            path="/"
+            exact
+            component={Home}
+            role="user"
+            redirectTo="/login"
+          /> */}
+          <Route path="/login/" component={Login} />
+
           {/* <RouteY path="/" exact component={Home}/> */}
           <PermissionGroup role={null} redirectTo="/login">
-            <Route path="/" component={Home} />
+            <Route path="/" exact component={Home} />
             <Route path="/my-cards/" component={MyCards} />
           </PermissionGroup>
-          <PermissionGroup role={'admin'} redirectTo="/" strict>
+          {/* <PermissionGroup role={'admin'} redirectTo="/" strict>
             <Route path="/register/" component={Register} />
             <Route path="/login/" component={Login} />
-          </PermissionGroup>
+          </PermissionGroup> */}
           {/* <SafeRoute
             path="/login/"
             component={Login}
@@ -41,7 +57,7 @@ export const App = () => {
             isAllowed={isLoggedIn}
             redirectTo="/login"
           /> */}
-        </Switch>
+        {/* </Switch> */}
       </AuthorizationProvider>
     </Router>
   );

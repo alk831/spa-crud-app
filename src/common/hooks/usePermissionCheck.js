@@ -8,7 +8,9 @@ export function usePermissionCheck({
   const userRole = useSelector(state => state.authorization.user.role);
   const roles = useSelector(state => state.authorization.roles);
 
-  if (!roles.length && userRole != null) {
+  // return true;
+
+  if (!roles.length) {
     return false;
   }
 
