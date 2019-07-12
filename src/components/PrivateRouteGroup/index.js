@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Redirect, Route } from 'react-router-dom';
+import React from './node_modules/react';
+import PropTypes from './node_modules/prop-types';
+import { Redirect, Route } from './node_modules/react-router-dom';
 import { usePermissionCheck } from '../../common/hooks';
 
 
-export const PermissionGroup = ({
+export const PrivateRouteGroup = ({
   role: allowedRole,
   strict: strictRole,
   redirectTo,
@@ -27,7 +27,7 @@ export const PermissionGroup = ({
   });
 }
 
-PermissionGroup.propTypes = {
+PrivateRouteGroup.propTypes = {
   /** Role that will have access to this route/s. */
   role: PropTypes.oneOfType([
     PropTypes.string.isRequired,

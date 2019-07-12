@@ -7,11 +7,10 @@ import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { AuthorizationProvider } from './context/Authorization';
 import { Header } from './components/Header';
-import { ProtectedRoute } from './components/ProtectedRoute';
+import { PrivateRoute } from './components/PrivateRoute';
 import { Register } from './pages/Register';
 import { MyCards } from './pages/MyCards';
-import { SafeRoute } from './components/Route';
-import { PermissionGroup } from './components/PermissionGroup';
+import { PrivateRouteGroup } from './components/PrivateRouteGroup';
 
 export const App = () => {
   return (
@@ -19,14 +18,14 @@ export const App = () => {
       <AuthorizationProvider>
         <Header />
         {/* <Switch> */}
-          <ProtectedRoute
+          <PrivateRoute
             path="/login/"
             component={Login}
             group={null}
             strictGroup
             redirectTo="/"
           />
-          <ProtectedRoute
+          <PrivateRoute
             path="/"
             exact
             component={Home}

@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { usePermissionCheck } from '../../common/hooks';
 import PropTypes from 'prop-types';
 
-export const ProtectedRoute = ({
+export const PrivateRoute = ({
   group: allowedGroup,
   strictGroup,
   component: Component,
@@ -24,7 +24,7 @@ export const ProtectedRoute = ({
   );
 }
 
-ProtectedRoute.propTypes = {
+PrivateRoute.propTypes = {
   /** group that will have access to this route/s. */
   group: PropTypes.oneOfType([
     PropTypes.string.isRequired,
