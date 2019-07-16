@@ -1,6 +1,13 @@
-import { CARD_LIKED, CARD_DISLIKED } from "../consts";
+import {
+  CARD_LIKED,
+  CARD_DISLIKED,
+  CARDS_FETCH_REQUESTED,
+  CARDS_FETCH_SUCCEEDED,
+  CARDS_FETCH_FAILED
+} from "../consts";
 
 const initialState = {
+  isLoading: true,
   liked: []
 }
 
@@ -18,6 +25,19 @@ export function cardsReducer(
       liked: state.liked.filter(card => 
         card.id !== action.meta.id
       )
+    }
+    case CARDS_FETCH_REQUESTED: return {
+      ...state,
+      isLoading: true
+    }
+    case CARDS_FETCH_SUCCEEDED: return {
+      ...state,
+      isLoading: false,
+      liked: action.payload
+    }
+    case CARDS_FETCH_FAILED: return {
+      ...state,
+      isLoading: false
     }
     default: return state;
   }

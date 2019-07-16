@@ -1,5 +1,6 @@
 import { LOGOUT, LOGIN_REQUESTED, LOGIN_SUCCEEDED, LOGIN_FAILED, REGISTER_REQUESTED, REGISTER_SUCCEEDED, REGISTER_FAILED } from "../consts";
 import firebase from 'firebase';
+import { HOST } from "../../common/consts";
 
 export const loginRequested = () => ({
   type: LOGIN_REQUESTED
@@ -19,11 +20,22 @@ export const login = (email, password) => async (dispatch) => {
   try {
     dispatch(loginRequested());
 
-    const credentials = await firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password);
+    const response = await fetch(`${HOST}/auth/login`, {
+      body: JSON.stringify({ email, password }),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      method: 'POST'
+    });
 
-    dispatch(loginSucceeded(credentials));
+    if (!response.ok) {
+      dispatch(loginFailed(response.statusText));
+      return false;
+    }
+
+    dispatch(loginSucceeded(await response.json()));
     return true;
     
   } catch (err) {

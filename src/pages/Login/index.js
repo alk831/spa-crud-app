@@ -20,12 +20,12 @@ const Login = ({ history }) => {
       setValidationErr(null);
     }
 
-    if (email.length < minEmailLength) {
-      return setValidationErr(`Email musi mieć przynajmniej ${minEmailLength} znaków.`);
-    }
-    if (password.length < minPasswordLength) {
-      return setValidationErr(`Hasło musi mieć przynajmniej ${minPasswordLength} znaków`);
-    }
+    // if (email.length < minEmailLength) {
+    //   return setValidationErr(`Email musi mieć przynajmniej ${minEmailLength} znaków.`);
+    // }
+    // if (password.length < minPasswordLength) {
+    //   return setValidationErr(`Hasło musi mieć przynajmniej ${minPasswordLength} znaków`);
+    // }
 
     const result = await dispatch(login(email, password));
   
