@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Card } from '../../components/Card';
 import cardsMock from '../../__mocks__/cards.json';
 import css from './style.scss';
 import * as Actions from '../../store/actions';
 import axios from 'axios';
 
+import { Card } from '../../components/Card';
 import { Dashboard } from '../../layouts/Dashboard';
+import { SwipeableCard } from '../../components/SwipeableCard';
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ export const Home = () => {
       <ul className={css.cards_list}>
         {cards.map(card => (
           <li key={card.id} className={css.cards_item}>
-            <Card
+            <SwipeableCard
               card={card}
               onLiked={() => handleCardLike(card)}
               onSkipped={removeLastCard}  

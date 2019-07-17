@@ -3,13 +3,28 @@
   background: #fff;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 0 0 10px 0 rgb(201, 201, 201);
-  width: 250px;
-  height: 400px;
+  box-shadow: 0 10px 10px 0 rgb(200, 207, 211);
+  width: 380px;
+  height: 280px;
+  position: relative;
+}
+
+.title {
+  position: absolute;
+  background: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 8px 15px;
+  left: 50%;
+  bottom: calc(100% - 5px);
+  transform: translateX(-50%);
 }
 
 .image {
-  max-width: 100%;
-  max-height: 100%;
+  height: 100%;
+  width: 100%;
   border-radius: 5px;
+  user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
 }

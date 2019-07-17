@@ -5,23 +5,26 @@ import PropTypes from 'prop-types';
 export const Card = ({
   card,
   onLiked,
-  onSkipped
+  onSkipped,
+  ...props
 }) => {
   return (
-    <div className={css.container}>
-      <p>{card.note}</p>
+    <figure className={css.container} {...props}>
+      <figcaption className={css.title}>
+        {card.note}
+      </figcaption>
       <img
         src={card.imageUrl}
         className={css.image}
         alt={`${card.note} by ${card.creatorName}`}
       />
-      <button onClick={onLiked}>
+      {/* <button onClick={onLiked}>
         Like
       </button>
       <button onClick={onSkipped}>
         Skip
-      </button>
-    </div>
+      </button> */}
+    </figure>
   );
 }
 
