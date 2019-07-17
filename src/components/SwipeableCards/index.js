@@ -38,18 +38,29 @@ const opacity = (x) => {
   if (opc > 0.30) return 0.30;
   return opc;
 }
-const bgColor = (x) => x > 0 ? 'green' : 'red';
+const bgColor = (x) => x > 0 ? '#d4fc79' : '#ff0844';
+const bgColorRgba = (x) => {
+  let opc = x / 1300;
+  if (opc < 0) opc *= -1;
+  if (opc > 0.30) opc = 0.30;
+  return x > 0 ? `rgba(212, 252, 121, ${opc})` : `rgba(255, 8, 68, ${opc})`;
+}
 // This is being used down there in the view, it interpolates rotation and scale into a css transform
-const trans = (r, s) => `perspective(1500px) rotateX(30deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
+const trans = (r, s) => `perspective(2500px) rotateX(15deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
 
 export const Deck = ({ cards }) => {
+  const [curIndex, setCurIndex] = useState(() => cards.length - 1);
   const [gone] = useState(() => new Set()) // The set flags all the cards that are flicked out
   const [props, set] = useSprings(cards.length, i => ({ ...to(i), from: from(i) })) // Create a bunch of springs using the helpers above
   // Create a gesture, we're interested in down-state, delta (current-pos - click-pos), direction and velocity
   const bind = useGesture(({ args: [index], down, delta: [xDelta], distance, direction: [xDir], velocity }) => {
     const trigger = velocity > 0.2 // If you flick hard enough it should trigger the card to fly out
     const dir = xDir < 0 ? -1 : 1 // Direction should either point left or right
-    if (!down && trigger) gone.add(index) // If button/finger's up and trigger velocity is reached, we flag the card ready to fly out
+    if (!down && trigger) { 
+      // If button/finger's up and trigger velocity is reached, we flag the card ready to fly out
+      gone.add(index)
+      setCurIndex(i => i - 1);
+    }
     set(i => {
       if (index !== i) return // We're only interested in changing spring-data for the current spring
       const isGone = gone.has(index)
@@ -62,7 +73,7 @@ export const Deck = ({ cards }) => {
   })
   // Now we're just mapping the animated values to our view, that's it. Btw, this component only renders once. :-)
   return (
-    <div className={css.list_container}>
+    <div className={css.list_container}> 
       {props.map(({ x, y, rot, scale }, i) => (
         <animated.div
           key={i}

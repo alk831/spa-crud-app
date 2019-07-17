@@ -15,7 +15,6 @@ export const App = () => {
   return (
     <Router>
       <AuthorizationProvider>
-        <Header />
         {/* <Switch> */}
           <PrivateRoute
             path="/login/"
