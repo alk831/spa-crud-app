@@ -4,6 +4,7 @@ import css from './style.scss';
 import { useSelector } from 'react-redux';
 
 import { UserInfo } from '../../components/UserInfo';
+import { BasicButton } from '../../components/BasicButton';
 
 const dashboardLinks = [
   { title: 'Strona główna', path: '/' },
@@ -31,9 +32,9 @@ export const Dashboard = ({ children }) => {
             </li>
           ))}
         </ul>
-        <button className={css.logout_btn}>
+        <BasicButton className={css.logout_btn}>
           Wyloguj się
-        </button>
+        </BasicButton>
       </nav>
       <article className={css.content_container}>
         {children}

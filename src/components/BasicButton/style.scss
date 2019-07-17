@@ -1,0 +1,13 @@
+
+.container {
+  font-family: 'DM Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  background: #EFF3F6;
+  border-style: none;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 13px 8px;
+  box-shadow: 0 4px 5px -1px rgb(47, 77, 136);
+  &:hover {
+    background: rgb(216, 238, 253);
+  }
+}
