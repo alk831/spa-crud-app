@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Card } from '../../components/Card';
 import { Dashboard } from '../../layouts/Dashboard';
 import { SwipeableCard } from '../../components/SwipeableCard';
+import { Deck } from '../../components/SwipeableCards';
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ export const Home = () => {
   return (
     <Dashboard>
       <div>Witaj {user.email}</div>
+      <Deck cards={cards} />
       <ul className={css.cards_list}>
         {cards.map(card => (
           <li key={card.id} className={css.cards_item}>
