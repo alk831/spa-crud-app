@@ -32,6 +32,13 @@ import css from './style.scss';
 // These two are just helpers, they curate spring data, values that are later being interpolated into css
 const to = i => ({ x: 0, y: i * -4, scale: 1, rot: -10 + Math.random() * 20, delay: i * 100 })
 const from = i => ({ x: 0, rot: 0, scale: 1.2, y: -1000 })
+const opacity = (x) => {
+  let opc = x / 1300;
+  if (opc < 0) opc *= -1;
+  if (opc > 0.30) return 0.30;
+  return opc;
+}
+const bgColor = (x) => x > 0 ? 'green' : 'red';
 // This is being used down there in the view, it interpolates rotation and scale into a css transform
 const trans = (r, s) => `perspective(1500px) rotateX(30deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
 
@@ -66,8 +73,16 @@ export const Deck = ({ cards }) => {
           <animated.div
             {...bind(i)}
             style={{ transform: interpolate([rot, scale], trans), backgroundImage: `url(${cards[i].imageUrl})` }}
+            className={css.list_item_card}
           >
-            <Card card={cards[i]}/>
+            <animated.div
+              className={css.item_overflow}
+              style={{
+                backgroundColor: x.interpolate(bgColor),
+                opacity: x.interpolate(opacity)
+              }}
+            ></animated.div>
+            <Card card={cards[i]} />
           </animated.div>
         </animated.div>
       ))}

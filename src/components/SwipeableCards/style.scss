@@ -1,3 +1,4 @@
+@import "../../assets/css/zindex.scss";
 
 .card {
   width: 100%;
@@ -18,4 +19,21 @@
   margin: 0 auto;
   position: absolute;
   left: calc(50% - 380px / 2);
+  user-select: none;
+}
+
+.list_item_card {
+  position: relative;
+}
+
+.item_overflow {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: block;
+  background-color: red;
+  left: 0;
+  opacity: 1;
+  border-radius: 5px;
+  z-index: $card-overflow;
 }
