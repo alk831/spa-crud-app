@@ -14,7 +14,7 @@ export const MyCards = () => {
   }, []);
 
   const handleCardDislike = (cardId) => {
-    dispatch(Actions.cardDisliked(cardId));
+    dispatch(Actions.removeLikedCard(cardId));
   }
 
   if (isLoading) {

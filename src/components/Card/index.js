@@ -9,11 +9,11 @@ export const Card = ({
 }) => {
   return (
     <div className={css.container}>
-      <p>{card.title}</p>
+      <p>{card.note}</p>
       <img
-        src={card.img}
+        src={card.imageUrl}
         className={css.image}
-        alt={`${card.title} by ${card.author}`}
+        alt={`${card.note} by ${card.creatorName}`}
       />
       <button onClick={onLiked}>
         Like

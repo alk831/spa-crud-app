@@ -5,7 +5,7 @@ import {
   CARDS_FETCH_SUCCEEDED,
   CARDS_FETCH_FAILED
 } from '../consts';
-import { HOST } from '../../common/consts';
+import axios from 'axios';
 
 export const cardLiked = (payload) => ({
   type: CARD_LIKED,
@@ -31,12 +31,21 @@ export const cardsFetchFailed = (error) => ({
   error
 });
 
+export const saveLikedCard = (card) => async (dispatch) => {
+  const { data: { data }} = await axios.post('/cards/favorite', card);
+  dispatch(cardLiked(data));
+}
+
+export const removeLikedCard = (cardId) => async (dispatch) => {
+  dispatch(cardDisliked(cardId));
+
+  await axios.delete(`/cards/favorite/${cardId}`);
+}
+
 export const fetchLikedCards = () => async (dispatch) => {
   dispatch(cardsFetchRequested());
 
-  const response = await fetch(`${HOST}/cards/favorite`);
-  const data = await response.json();
-  console.log({ data })
+  const { data: { data }} = await axios('/cards/favorite');
   
   dispatch(cardsFetchSucceeded(data));
 }
