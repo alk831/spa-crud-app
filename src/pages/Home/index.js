@@ -6,6 +6,8 @@ import css from './style.scss';
 import * as Actions from '../../store/actions';
 import axios from 'axios';
 
+import { Dashboard } from '../../layouts/Dashboard';
+
 export const Home = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.authorization.user);
@@ -36,7 +38,7 @@ export const Home = () => {
   }
 
   return (
-    <>
+    <Dashboard>
       <div>Witaj {user.email}</div>
       <ul className={css.cards_list}>
         {cards.map(card => (
@@ -49,6 +51,6 @@ export const Home = () => {
           </li>
         ))}
       </ul>
-    </>
+    </Dashboard>
   );
 }
