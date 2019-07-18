@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import css from './style.scss';
 import PropTypes from 'prop-types';
 import HeartIcon from '../../assets/img/heart.svg';
@@ -12,13 +12,9 @@ export const Card = ({
   onSkipped,
   ...props
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <figure
       className={css.container}
-      onMouseOver={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       {...props}
     >
       <img
@@ -42,10 +38,12 @@ export const Card = ({
             <RoundedButton
               icon={NextIcon}
               mode="skip"
+              onClick={onSkipped}
             />
             <RoundedButton
               icon={HeartIcon}
               mode="like"
+              onClick={onLiked}
             />
           </div>
         </div>
