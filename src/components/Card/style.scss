@@ -22,6 +22,9 @@
     left: 0;
     border-radius: $card-border-radius;
   }
+  &:hover .image {
+    transform: translateY(-30px);
+  }
 }
 
 .title {
@@ -36,6 +39,7 @@
 }
 
 .image {
+  transition: transform .25s ease;
   height: 100%;
   width: 100%;
   border-radius: $card-border-radius;
@@ -63,7 +67,9 @@
 }
 
 .info_content {
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .info_title {
@@ -83,4 +89,11 @@
 
 .info_author {
   color: #229DD1;
+}
+
+.buttons_container {
+  display: flex;
+  & > :first-child {
+    margin-right: 15px;
+  }
 }

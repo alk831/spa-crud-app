@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import css from './style.scss';
 import PropTypes from 'prop-types';
-import Heart from '../../assets/img/heart.svg';
+import HeartIcon from '../../assets/img/heart.svg';
+import NextIcon from '../../assets/img/next.svg';
 
 import { RoundedButton } from '../RoundedButton';
 
@@ -27,18 +28,26 @@ export const Card = ({
       />
       <div className={css.info_container}>
         <div className={css.info_content}>
-          <figcaption className={css.info_title}>
-            <a href={card.url}>
-              Mobile application - Ceramic shop
+          <div>
+            <figcaption className={css.info_title}>
+              <a href={card.url}>
+                Mobile application - Ceramic shop
+              </a>
+            </figcaption>
+            <a href={card.creatorUrl} className={css.info_author}>
+              Outcrowd
             </a>
-          </figcaption>
-          <a href={card.creatorUrl} className={css.info_author}>
-            Outcrowd
-          </a>
-          <RoundedButton
-            icon={Heart}
-            theme="rose"
-          />
+          </div>
+          <div className={css.buttons_container}>
+            <RoundedButton
+              icon={NextIcon}
+              mode="skip"
+            />
+            <RoundedButton
+              icon={HeartIcon}
+              mode="like"
+            />
+          </div>
         </div>
       </div>
     </figure>

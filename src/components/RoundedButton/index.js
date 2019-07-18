@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 
 export const RoundedButton = ({
   className,
+  mode = 'like',
   icon: Icon,
   ...props
 }) => (
   <button
     {...applyCss(
       css.container,
-      css.rose
+      css[mode]
     )}
     {...props}
   >
@@ -20,5 +21,5 @@ export const RoundedButton = ({
 );
 
 RoundedButton.propTypes = {
-  theme: PropTypes.oneOf(['rose', 'green'])
+  mode: PropTypes.oneOf(['like', 'skip'])
 }
