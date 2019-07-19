@@ -1,13 +1,16 @@
 import { LOGOUT, LOGIN_REQUESTED, LOGIN_SUCCEEDED, LOGIN_FAILED, REGISTER_REQUESTED, REGISTER_SUCCEEDED, REGISTER_FAILED } from '../consts';
 import { isDevelopment } from '../../common/consts';
+import { getAuthData } from '../../common/utils';
+
+const { user, groups } = getAuthData();
 
 const initialState = {
   isLoggedIn: isDevelopment,
   isLoading: false,
-  user: {},
+  user,
   error: null,
   group: null,
-  groups: []
+  groups,
 }
 
 export function authorizationReducer(
@@ -21,8 +24,8 @@ export function authorizationReducer(
     }
     case LOGIN_SUCCEEDED: return {
       ...state,
-      user: action.payload.data,
-      group: action.payload.data.group,
+      user: action.payload.user,
+      group: action.payload.user.group,
       groups: action.payload.groups,
       isLoggedIn: true,
       isLoading: false

@@ -1,6 +1,5 @@
 import { LOGOUT, LOGIN_REQUESTED, LOGIN_SUCCEEDED, LOGIN_FAILED, REGISTER_REQUESTED, REGISTER_SUCCEEDED, REGISTER_FAILED } from "../consts";
-import firebase from 'firebase';
-import { HOST } from "../../common/consts";
+import axios from 'axios';
 
 export const loginRequested = () => ({
   type: LOGIN_REQUESTED
@@ -20,33 +19,27 @@ export const login = (email, password) => async (dispatch) => {
   try {
     dispatch(loginRequested());
 
-    const response = await fetch(`${HOST}/auth/login`, {
-      body: JSON.stringify({ email, password }),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include',
-      method: 'POST'
-    });
+    const { data: { data }} = await axios.post('/auth/login', { email, password });
 
-    if (!response.ok) {
-      dispatch(loginFailed(response.statusText));
-      return false;
-    }
+    sessionStorage.setItem('auth-data', JSON.stringify(data));
+    dispatch(loginSucceeded(data));
 
-    dispatch(loginSucceeded(await response.json()));
     return true;
     
   } catch (err) {
     dispatch(loginFailed(err));
-    return false;   
+    return false;
   }
 }
 
 export const logout = () => ({
   type: LOGOUT 
 });
+
+export const handleLogout = () => (dispatch) => {
+  sessionStorage.removeItem('auth-data');
+  dispatch(logout());
+}
 
 export const registerRequested = () => ({
   type: REGISTER_REQUESTED
@@ -66,11 +59,9 @@ export const register = (email, password) => async (dispatch) => {
   try {
     dispatch(registerRequested());
 
-    const { user } = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password);
+    await axios.post('/auth/register', { email, password });
 
-    dispatch(registerSucceeded(user));
+    dispatch(registerSucceeded({}));
     return true;
 
   } catch(err) {
