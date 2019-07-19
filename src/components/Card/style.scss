@@ -5,7 +5,7 @@
   background: #fff;
   padding: 10px;
   border-radius: $card-border-radius;
-  box-shadow: 0 10px 10px 0 rgb(200, 207, 211);
+  box-shadow: 0 10px 10px 0 $card-shadow-color;
   width: $card-width;
   height: $card-height;
   position: relative;

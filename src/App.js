@@ -1,6 +1,6 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './assets/css/main.scss';
 
 import { Home } from './pages/Home';
@@ -10,6 +10,7 @@ import { Header } from './components/Header';
 import { PrivateRoute } from './components/PrivateRoute';
 import { Register } from './pages/Register';
 import { MyCards } from './pages/MyCards';
+import { Users } from './pages/Users';
 
 export const App = () => {
   return (
@@ -42,6 +43,10 @@ export const App = () => {
             component={MyCards}
             group={null}
             redirectTo="/login"
+          />
+          <Route
+            path="/users/"
+            component={Users}
           />
         {/* </Switch> */}
       </AuthorizationProvider>

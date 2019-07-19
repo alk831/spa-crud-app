@@ -8,7 +8,8 @@ import { BasicButton } from '../../components/BasicButton';
 
 const dashboardLinks = [
   { title: 'Strona główna', path: '/' },
-  { title: 'Moje karty', path: '/my-cards' }
+  { title: 'Moje karty', path: '/my-cards' },
+  { title: 'Użytkownicy', path: '/users' },
 ]
 
 export const Dashboard = ({ children }) => {

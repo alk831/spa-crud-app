@@ -1,0 +1,41 @@
+@import "../../assets/css/variables.scss";
+
+$padding-horizontal: 5px;
+
+%col_align {
+  $aligns: left center right;
+  @each $align in $aligns {
+    &.align_#{$align} {
+      text-align: $align;
+    }
+  }
+}
+
+.container {
+  background: #fff;
+  border-radius: 4px;
+  padding: 15px;
+  box-shadow: $card-shadow;
+}
+
+.row {
+  &:hover .col {
+    background-color: rgb(219, 228, 233);
+  }
+}
+
+.col_head {
+  padding: 10px 5px 20px $padding-horizontal;
+  @extend %col_align;
+}
+
+.col {
+  padding: 10px $padding-horizontal;
+  &:first-child {
+    border-radius: 5px 0 0 5px;
+  }
+  &:last-child {
+    border-radius: 0 5px 5px 0;
+  }
+  @extend %col_align;
+}
