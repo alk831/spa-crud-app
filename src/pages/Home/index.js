@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Dashboard } from '../../layouts/Dashboard';
 import { SwipeableCard } from '../../components/SwipeableCard';
 import { Deck } from '../../components/SwipeableCards';
+import { Heading } from '../../components/Heading';
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -41,18 +42,17 @@ export const Home = () => {
   return (
     <Dashboard>
       <section className={css.section}>
-        <h1 className={css.heading}>
-          Przegladaj karty
-        </h1>
-        <p className={css.heading_paragraph}>
-          Przesuwaj karty aby je polubić lub pominąć
-        </p>
+        <Heading
+          title="Przegladaj karty"
+          paragraph="Przesuwaj karty aby je polubić lub pominąć"
+        />
         <Deck cards={cards} />
       </section>
       <section className={css.section}>
-        <h1 className={css.heading}>
-          Najpopularniejsze karty
-        </h1>
+        <Heading
+          title="Najpopularniejsze karty"
+          paragraph="Karty z największą ilością polubień"
+        />
         <ul className={css.cards_list}>
           {cards.map(card => (
             <li key={card.id} className={css.cards_item}>

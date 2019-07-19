@@ -8,6 +8,7 @@ import { debounce } from '../../common/utils';
 import { Dashboard } from '../../layouts/Dashboard';
 import { Table, Td, Tr, Th } from '../../components/Table';
 import { BasicInput } from '../../components/BasicInput';
+import { Heading } from '../../components/Heading';
 
 export const Users = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +40,9 @@ export const Users = () => {
 
   return (
     <Dashboard>
-      <h1>Lista użytkowników</h1>
+      <Heading
+        title="Użytkownicy"
+      />
       <Table className={css.users_table}>
         <thead>
           <tr>
