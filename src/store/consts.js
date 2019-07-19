@@ -1,3 +1,5 @@
+/** Application */
+export const ERROR_TIMED_OUT = 'ERROR_TIMED_OUT';
 /** Authorization */
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED';
