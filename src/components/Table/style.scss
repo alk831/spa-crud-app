@@ -1,15 +1,6 @@
-@import "../../assets/css/variables.scss";
+@import "../../assets/css/index.scss";
 
 $padding-horizontal: 5px;
-
-%col_align {
-  $aligns: left center right;
-  @each $align in $aligns {
-    &.align_#{$align} {
-      text-align: $align;
-    }
-  }
-}
 
 .container {
   background: #fff;
@@ -26,7 +17,7 @@ $padding-horizontal: 5px;
 
 .col_head {
   padding: 10px 5px 20px $padding-horizontal;
-  @extend %col_align;
+  @extend %align;
 }
 
 .col {
@@ -37,5 +28,5 @@ $padding-horizontal: 5px;
   &:last-child {
     border-radius: 0 5px 5px 0;
   }
-  @extend %col_align;
+  @extend %align;
 }

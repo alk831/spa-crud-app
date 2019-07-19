@@ -1,4 +1,4 @@
-@import "../../assets/css/variables.scss";
+@import "../../assets/css/index.scss";
 
 .container {
   font-family: $font-family;
@@ -6,4 +6,6 @@
   border-radius: 4px;
   border-style: none;
   box-shadow: 0 4px 5px -1px rgb(47, 77, 136);
+  box-shadow: $card-shadow;
+  @extend %align;
 }

@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux';
 
 /**
- * Checks permission status.
+ * Checks if user has equal role, or if inherits specified role if strict check is disabled.
  * @param {null|string} allowedGroup Name of the group that has permissions for this resource.
  * @param {boolean} strictGroup If set to true, it disables group permission inheritance.
  * @returns {boolean} Permission status. 
  */
 export function usePermissionCheck(allowedGroup, strictGroup = false) {
-  const userGroup = useSelector(state => state.authorization.group);
+  const userGroup = useSelector(state => state.authorization.user.group);
   const groups = useSelector(state => state.authorization.groups);
 
   if (userGroup === allowedGroup) {
