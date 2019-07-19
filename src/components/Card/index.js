@@ -26,23 +26,35 @@ export const Card = ({
         <div className={css.info_content}>
           <div>
             <figcaption className={css.info_title}>
-              <a href={card.url}>
-                Mobile application - Ceramic shop
+              <a
+                href={card.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {card.note}
               </a>
             </figcaption>
-            <a href={card.creatorUrl} className={css.info_author}>
-              Outcrowd
+            <a
+              href={card.creatorUrl}
+              className={css.info_author}
+              title={`Strona twórcy - ${card.creatorName}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {card.creatorName}
             </a>
           </div>
           <div className={css.buttons_container}>
             <RoundedButton
               icon={NextIcon}
               mode="skip"
+              title="Pomiń"
               onClick={onSkipped}
             />
             <RoundedButton
               icon={HeartIcon}
               mode="like"
+              title="Polub"
               onClick={onLiked}
             />
           </div>

@@ -54,8 +54,8 @@ export const Home = () => {
           paragraph="Karty z największą ilością polubień"
         />
         <ul className={css.cards_list}>
-          {cards.map(card => (
-            <li key={card.id} className={css.cards_item}>
+          {cards.map((card, index) => (
+            <li key={index} className={css.cards_item}>
               <SwipeableCard
                 card={card}
                 onLiked={() => handleCardLike(card)}
