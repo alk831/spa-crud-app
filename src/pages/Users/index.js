@@ -3,22 +3,22 @@ import css from './style.scss';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { usePermissionCheck } from '../../common/hooks';
+import { debounce } from '../../common/utils';
 
 import { Dashboard } from '../../layouts/Dashboard';
 import { Table, Td, Tr, Th } from '../../components/Table';
 import { BasicInput } from '../../components/BasicInput';
 
-
 export const Users = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState([]);
-  const canEditPoints = usePermissionCheck('moderator');
+  const canEditPoints = usePermissionCheck('user');
 
   useEffect(() => {
     async function fetchUsers() {
       const { data: { data }} = await axios.get('/users');
-      // setUsers(data);
-      // setIsLoading(false);
+      setUsers(data);
+      setIsLoading(false);
     }
     fetchUsers();
   }, []);
@@ -33,6 +33,8 @@ export const Users = () => {
         : user
       )
     );
+
+    debounce(() => axios.patch(`/users/${userId}`, { points }));
   }
 
   return (
@@ -78,5 +80,5 @@ export const Users = () => {
         </tbody>
       </Table>
     </Dashboard>
-  )
+  );
 }

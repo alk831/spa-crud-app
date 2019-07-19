@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
  * @returns {boolean} Permission status. 
  */
 export function usePermissionCheck(allowedGroup, strictGroup = false) {
-  const userGroup = useSelector(state => state.authorization.user.group);
+  const userGroup = useSelector(state => state.authorization.group);
   const groups = useSelector(state => state.authorization.groups);
 
   if (userGroup === allowedGroup) {

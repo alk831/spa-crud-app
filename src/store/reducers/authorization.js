@@ -22,6 +22,7 @@ export function authorizationReducer(
     case LOGIN_SUCCEEDED: return {
       ...state,
       user: action.payload.data,
+      group: action.payload.data.group,
       groups: action.payload.groups,
       isLoggedIn: true,
       isLoading: false
