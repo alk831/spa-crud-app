@@ -3,8 +3,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
-
-const isDevelopment = process.env.NODE_ENV === 'development';
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const isDevelopment = NODE_ENV === 'development';
 
 module.exports = {
   entry: './src/main',
@@ -33,7 +33,7 @@ module.exports = {
         use: [
           {
             loader: isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-            options: { hmr: false }
+            options: { hmr: isDevelopment }
           },
           {
             loader: 'css-loader',
