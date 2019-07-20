@@ -1,7 +1,8 @@
 import {
   LOGIN_FAILED,
   REGISTER_FAILED,
-  CARDS_FETCH_FAILED
+  CARDS_FETCH_FAILED,
+  ERROR_TIMED_OUT
 } from '../consts';
 
 const initialState = {

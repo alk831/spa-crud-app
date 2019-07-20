@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { minEmailLength, minPasswordLength } from '../../common/consts';
 import { login } from '../../store/actions';
 
+import { BasicInput } from '../../components/BasicInput';
+
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,16 +41,18 @@ const Login = ({ history }) => {
       <form onSubmit={handleLogin}>
         <label>
           Email:
-          <input
+          <BasicInput
             type="email"
+            placeholder="Adres email"
             value={email}
             onChange={e => setEmail(e.target.value)}
           />
         </label>
         <label>
           Hasło:
-          <input
+          <BasicInput
             type="password"
+            placeholder="Hasło"
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
