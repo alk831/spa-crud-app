@@ -5,9 +5,15 @@
   border-style: none;
   cursor: pointer;
   border-radius: 4px;
-  padding: 13px 8px;
-  box-shadow: 0 4px 5px -1px rgb(47, 77, 136);
-  &:hover {
-    background: rgb(216, 238, 253);
+  padding: 14px 15px;
+  background: rgb(59, 105, 255);
+  color: #fff;
+  word-spacing: 3px;
+  letter-spacing: 1px;
+  font-size: 13px;
+  transition: all .25s ease;
+  border: 1px solid transparent;
+  &:hover, &:focus {
+    box-shadow: 0 10px 30px -3px rgba(59, 105, 255, .9);
   }
 }

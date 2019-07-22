@@ -3,7 +3,8 @@ import css from './style.scss';
 import { applyCss } from '../../common/utils';
 
 export const BasicButton = ({
-  children,
+  title,
+  children = title,
   className,
   ...props
 }) => (

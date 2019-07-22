@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { minEmailLength, minPasswordLength } from '../../common/consts';
 import { login } from '../../store/actions';
+import css from './style.scss';
 
 import { BasicInput } from '../../components/BasicInput';
+import { BasicButton } from '../../components/BasicButton';
+import { FormField } from '../../components/FormField';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -22,13 +25,6 @@ const Login = ({ history }) => {
       setValidationErr(null);
     }
 
-    // if (email.length < minEmailLength) {
-    //   return setValidationErr(`Email musi mieć przynajmniej ${minEmailLength} znaków.`);
-    // }
-    // if (password.length < minPasswordLength) {
-    //   return setValidationErr(`Hasło musi mieć przynajmniej ${minPasswordLength} znaków`);
-    // }
-
     const result = await dispatch(login(email, password));
   
     if (result) {
@@ -37,32 +33,31 @@ const Login = ({ history }) => {
   }
 
   return (
-    <div>
+    <div className={css.container}>
+      <h1 className={css.heading}>Logowanie</h1>
       <form onSubmit={handleLogin}>
-        <label>
-          Email:
-          <BasicInput
-            type="email"
-            placeholder="Adres email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-        </label>
-        <label>
-          Hasło:
-          <BasicInput
-            type="password"
-            placeholder="Hasło"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-        </label>
+        <FormField
+          label="Email:"
+          type="email"
+          placeholder="Adres email"
+          value={email}
+          onChange={value => setEmail(value)}
+        />
+        <FormField
+          label="Hasło:"
+          type="password"
+          placeholder="Hasło"
+          value={password}
+          onChange={value => setPassword(value)}
+        />
         {!isLoading && (
           error ? error : validationErr
         )}
-        <button type="submit">
-          Zaloguj się
-        </button>
+        <BasicButton
+          className={css.submit_btn}
+          type="submit"
+          title="Zaloguj się"
+        />
       </form>
     </div>
   );

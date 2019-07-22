@@ -16,5 +16,6 @@
     box-shadow: 0 5px 10px 0 rgb(193, 208, 238);
   }
   outline: none;
+  box-sizing: border-box;
   @extend %align;
 }
