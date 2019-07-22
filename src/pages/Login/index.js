@@ -9,7 +9,7 @@ import { Form, FormField } from '../../components/Form';
 import { Authorization } from '../../layouts/Authorization';
 
 const MIN_EMAIL_LENGTH = 4;
-const MIN_PASS_LENGTH = 5;
+const MIN_PASS_LENGTH = 4;
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');

@@ -15,8 +15,13 @@ export const getAuthData = () => {
   const authData = sessionStorage.getItem('auth-data');
 
   if (authData) {
-    return JSON.parse(authData);
+    const { user, ...data } = JSON.parse(authData);
+    return {
+      ...data,
+      group: user.group,
+      user
+    }
   }
 
-  return { user: {}, groups: [] };
+  return { user: null, groups: [], group: null };
 }

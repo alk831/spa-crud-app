@@ -1,15 +1,22 @@
-import { LOGOUT, LOGIN_REQUESTED, LOGIN_SUCCEEDED, LOGIN_FAILED, REGISTER_REQUESTED, REGISTER_SUCCEEDED, REGISTER_FAILED } from '../consts';
-import { isDevelopment } from '../../common/consts';
+import {
+  LOGOUT,
+  LOGIN_REQUESTED,
+  LOGIN_SUCCEEDED,
+  LOGIN_FAILED,
+  REGISTER_REQUESTED,
+  REGISTER_SUCCEEDED,
+  REGISTER_FAILED
+} from '../consts';
 import { getAuthData } from '../../common/utils';
 
-const { user, groups } = getAuthData();
+const { user, group, groups } = getAuthData();
 
 const initialState = {
-  isLoggedIn: isDevelopment,
+  isLoggedIn: !!user,
   isLoading: false,
-  user,
   error: null,
-  group: null,
+  user,
+  group,
   groups,
 }
 
