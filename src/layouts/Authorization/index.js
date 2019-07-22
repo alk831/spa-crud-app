@@ -8,9 +8,6 @@ import PropTypes from 'prop-types';
 
 import { Form, FormField } from '../../components/Form';
 
-const MIN_EMAIL_LENGTH = 4;
-const MIN_PASS_LENGTH = 4;
-
 const formData = {
   login: {
     title: 'Logowanie',
@@ -18,7 +15,10 @@ const formData = {
     info: (
       <p className={css.registration_info}>
         Nie masz konta?{' '}
-        <Link to="/register">
+        <Link
+          to="/register"
+          className={css.info_link}
+        >
           Zarejestruj się
         </Link>
       </p>
@@ -30,7 +30,10 @@ const formData = {
     info: (
       <p className={css.registration_info}>
         Posiadasz już konto?{' '}
-        <Link to="/login">
+        <Link
+          to="/login"
+          className={css.info_link}
+        >
           Zaloguj się
         </Link>
       </p>
@@ -48,6 +51,9 @@ const Authorization = ({ history, mode }) => {
   
   async function handleAuthentication(event) {
     event.preventDefault();
+    const minEmailLenght = 4;
+    const minPassLength = 4;
+
     if (isLoading) {
       return;
     }
@@ -55,14 +61,14 @@ const Authorization = ({ history, mode }) => {
       setError(null);
     }
 
-    if (email.length < MIN_EMAIL_LENGTH) {
+    if (email.length < minEmailLenght) {
       return setError(
-        `Adres email musi zawierać przynajmniej ${MIN_EMAIL_LENGTH} znaków`
+        `Adres email musi zawierać przynajmniej ${minEmailLenght} znaków`
       );
     }
-    if (password.length < MIN_PASS_LENGTH) {
+    if (password.length < minPassLength) {
       return setError(
-        `Hasło musi zawierać przynajmniej ${MIN_PASS_LENGTH} znaków`
+        `Hasło musi zawierać przynajmniej ${minPassLength} znaków`
       );
     }
 
