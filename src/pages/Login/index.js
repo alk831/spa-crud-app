@@ -5,15 +5,14 @@ import { login } from '../../store/actions';
 import css from './style.scss';
 import { Link } from 'react-router-dom';
 
-import { FormField } from '../../components/FormField';
-import { Form } from '../../components/Form';
+import { Form, FormField } from '../../components/Form';
 import { Authorization } from '../../layouts/Authorization';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const [error, setError] = useState('Wystąpił nieoczekiwany błąd serwera');
   const { isLoading } = useSelector(state => state.authorization);
   
   async function handleLogin(event) {

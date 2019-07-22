@@ -2,6 +2,7 @@ import React from 'react';
 import css from './style.scss';
 
 import { BasicButton } from '../BasicButton';
+import { BasicInput } from '../BasicInput';
 
 export const Form = ({
   onSubmit,
@@ -11,9 +12,7 @@ export const Form = ({
   children,
   title,
   buttonTitle
-}) => {
-
-  return (
+}) => (
     <form onSubmit={onSubmit}>
       <h1 className={css.heading}>{title}</h1>
       {children}
@@ -29,5 +28,23 @@ export const Form = ({
         title={buttonTitle}
       />
     </form>
-  );
-}
+);
+
+export const FormField = ({
+  label,
+  onChange,
+  ...inputProps
+}) => (
+  <div className={css.field}>
+    <label>
+      <span className={css.field_title}>
+        {label}
+      </span>
+      <BasicInput
+        {...inputProps}
+        className={css.input}
+        onChange={e => onChange(e.target.value)}
+      />
+    </label>
+  </div>
+);
