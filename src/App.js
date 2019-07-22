@@ -8,7 +8,7 @@ import { AuthorizationProvider } from './context/Authorization';
 import { PrivateRoute } from './components/PrivateRoute';
 import { MyCards } from './pages/MyCards';
 import { Users } from './pages/Users';
-import { Authorization } from './pages/Authorization'; 
+import { Authorization } from './layouts/Authorization'; 
 
 const Login = () => (
   <Authorization mode="login" />
