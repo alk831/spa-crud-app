@@ -1,0 +1,22 @@
+
+.container {
+  background: #fff;
+  max-width: 370px;
+  padding: 40px;
+  box-sizing: border-box;
+  box-shadow: 0 10px 30px 0 rgb(200, 207, 211);
+  border-radius: 5px;
+  margin: 100px auto 0 auto;
+}
+
+.registration_info {
+  text-align: center;
+  margin-top: 40px;
+  white-space: pre-wrap;
+}
+
+.submit_btn {
+  min-width: 160px;
+  margin: 40px auto 0 auto;
+  display: block;
+}

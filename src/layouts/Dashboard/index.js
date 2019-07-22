@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import css from './style.scss';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as Actions from '../../store/actions';
 
 import { UserInfo } from '../../components/UserInfo';
 import { BasicButton } from '../../components/BasicButton';
@@ -13,6 +14,7 @@ const dashboardLinks = [
 ]
 
 export const Dashboard = ({ children }) => {
+  const dispatch = useDispatch();
   const user = useSelector(state => state.authorization.user);
 
   return (
@@ -33,7 +35,10 @@ export const Dashboard = ({ children }) => {
             </li>
           ))}
         </ul>
-        <BasicButton className={css.logout_btn}>
+        <BasicButton
+          className={css.logout_btn}
+          onClick={() => dispatch(Actions.handleLogout())}
+        >
           Wyloguj się
         </BasicButton>
       </nav>

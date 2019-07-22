@@ -1,4 +1,12 @@
-import { LOGOUT, LOGIN_REQUESTED, LOGIN_SUCCEEDED, LOGIN_FAILED, REGISTER_REQUESTED, REGISTER_SUCCEEDED, REGISTER_FAILED } from "../consts";
+import {
+  LOGOUT,
+  LOGIN_REQUESTED,
+  LOGIN_SUCCEEDED,
+  LOGIN_FAILED,
+  REGISTER_REQUESTED,
+  REGISTER_SUCCEEDED,
+  REGISTER_FAILED
+} from '../consts';
 import axios from 'axios';
 
 export const loginRequested = () => ({
@@ -45,16 +53,6 @@ export const registerFailed = (error) => ({
 });
 
 export const register = (email, password) => async (dispatch) => {
-  try {
-    dispatch(registerRequested());
-
-    await axios.post('/auth/register', { email, password });
-
-    dispatch(registerSucceeded({}));
-    return true;
-
-  } catch(err) {
-    dispatch(registerFailed(err));
-    return false;
-  }
+  await axios.post('/auth/register', { email, password });
+  await dispatch(login(email, password));
 }
