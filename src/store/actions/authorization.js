@@ -16,22 +16,9 @@ export const loginFailed = (error) => ({
 });
 
 export const login = (email, password) => async (dispatch) => {
-  try {
-    dispatch(loginRequested());
-
-    const { data: { data }} = await axios.post('/auth/login', { email, password });
-
-    sessionStorage.setItem('auth-data', JSON.stringify(data));
-    dispatch(loginSucceeded(data));
-
-    return null;
-    
-  } catch (error) {
-    const { status = 500 } = error.response;
-    dispatch(loginFailed(error));
-
-    return { error, status };
-  }
+  const { data: { data }} = await axios.post('/auth/login', { email, password });
+  sessionStorage.setItem('auth-data', JSON.stringify(data));
+  dispatch(loginSucceeded(data));
 }
 
 export const logout = () => ({

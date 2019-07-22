@@ -18,7 +18,7 @@ export const Form = ({
       {children}
       {!isLoading && error && (
         <p className={css.error_info}>
-          {error}
+          {error}.
         </p>
       )}
       {info}
