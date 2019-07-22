@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { minEmailLength, minPasswordLength } from '../../common/consts';
 import { login } from '../../store/actions';
 import css from './style.scss';
+import { Link } from 'react-router-dom';
 
-import { BasicInput } from '../../components/BasicInput';
 import { BasicButton } from '../../components/BasicButton';
 import { FormField } from '../../components/FormField';
+import { Authorization } from '../../layouts/Authorization';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -25,16 +25,15 @@ const Login = ({ history }) => {
       setValidationErr(null);
     }
 
-    const result = await dispatch(login(email, password));
+    const hasLoggedIn = await dispatch(login(email, password));
   
-    if (result) {
+    if (hasLoggedIn) {
       history.push('/');
     }
   }
 
   return (
-    <div className={css.container}>
-      <h1 className={css.heading}>Logowanie</h1>
+    <Authorization title="Logowanie">
       <form onSubmit={handleLogin}>
         <FormField
           label="Email:"
@@ -53,13 +52,19 @@ const Login = ({ history }) => {
         {!isLoading && (
           error ? error : validationErr
         )}
+        <p className={css.registration_info}>
+          Nie masz konta?{' '}
+          <Link to="/register">
+            Zarejestruj się
+          </Link>
+        </p>
         <BasicButton
           className={css.submit_btn}
           type="submit"
           title="Zaloguj się"
         />
       </form>
-    </div>
+    </Authorization>
   );
 }
 
