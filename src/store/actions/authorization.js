@@ -24,11 +24,13 @@ export const login = (email, password) => async (dispatch) => {
     sessionStorage.setItem('auth-data', JSON.stringify(data));
     dispatch(loginSucceeded(data));
 
-    return true;
+    return null;
     
-  } catch (err) {
-    dispatch(loginFailed(err));
-    return false;
+  } catch (error) {
+    const { status = 500 } = error.response;
+    dispatch(loginFailed(error));
+
+    return { error, status };
   }
 }
 

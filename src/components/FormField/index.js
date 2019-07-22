@@ -12,7 +12,7 @@ export const FormField = ({
     <div className={css.field}>
       <label>
         <span className={css.field_title}>
-          Email:
+          {label}
         </span>
         <BasicInput
           {...inputProps}
