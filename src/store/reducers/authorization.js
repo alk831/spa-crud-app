@@ -57,7 +57,14 @@ export function authorizationReducer(
       isLoading: false,
       error: action.error.message
     }
-    case LOGOUT: return initialState;
+    case LOGOUT: return {
+      ...state,
+      isLoggedIn: false,
+      isLoading: false,
+      user: null,
+      group: null,
+      groups: []
+    }
     default: return state;
   }
 }
