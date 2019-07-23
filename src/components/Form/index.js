@@ -26,6 +26,7 @@ export const Form = ({
         type="submit"
         className={css.submit_btn}
         title={buttonTitle}
+        isLoading={isLoading}
       />
     </form>
 );

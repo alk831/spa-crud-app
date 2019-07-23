@@ -53,6 +53,7 @@ const Authorization = ({ history, mode }) => {
     event.preventDefault();
     const minEmailLenght = 4;
     const minPassLength = 4;
+    const actionName = mode;
 
     if (isLoading) {
       return;
@@ -74,7 +75,7 @@ const Authorization = ({ history, mode }) => {
 
     try {
       setIsLoading(true);
-      await dispatch(Actions[mode](email, password));
+      await dispatch(Actions[actionName](email, password));
       history.push('/');
     } catch(err) {
       const { status } = err.response;
@@ -93,6 +94,7 @@ const Authorization = ({ history, mode }) => {
     <main className={css.container}>
       <Form
         onSubmit={handleAuthentication}
+        isLoading={isLoading}
         error={error}
         {...formData[mode]}
       >
