@@ -12,7 +12,7 @@ import { Heading } from '../../components/Heading';
 export const Users = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState([]);
-  const canEditPoints = usePermissionCheck('user');
+  const canEditPoints = usePermissionCheck('admin');
 
   useEffect(() => {
     async function fetchUsers() {
@@ -50,8 +50,8 @@ export const Users = () => {
             <Th>Email</Th>
             <Th>Grupa</Th>
             <Th>Punkty</Th>
-            <Th>Utworzony</Th>
-            <Th>Zaaktualizowany</Th>
+            <Th>Polubione karty</Th>
+            <Th>Aktualizacja</Th>
           </tr>
         </thead>
         <tbody>
@@ -76,8 +76,8 @@ export const Users = () => {
                   />
                 ) : user.points}
               </Td>
-              <Td>{dayjs(user.createdAt).fromNow()}</Td>
-              <Td>{dayjs(user.updatedAt).fromNow()}</Td>
+              <Td>{user.cardsCount}</Td>
+              <Td>{dayjs(user.updatedAt).format('HH:mm MM/D')}</Td>
             </Tr>
           ))}
         </tbody>
