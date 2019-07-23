@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from '../../store/actions';
 
 import { Card } from '../../components/Card';
-import { Dashboard } from '../../layouts/Dashboard';
 
 export const MyCards = () => {
   const dispatch = useDispatch();
@@ -22,16 +21,12 @@ export const MyCards = () => {
     return 'Loading...'
   }
 
-  return (
-    <Dashboard>
-      {likedCards.map(card => (
-        <Card
-          key={card.id}
-          card={card}
-          onLiked={() => {}}
-          onSkipped={() => handleCardDislike(card.id)}
-        />
-      ))}
-    </Dashboard>
-  );
+  return likedCards.map(card => (
+    <Card
+      key={card.id}
+      card={card}
+      onLiked={() => {}}
+      onSkipped={() => handleCardDislike(card.id)}
+    />
+  ));
 }

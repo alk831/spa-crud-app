@@ -40,7 +40,7 @@ export const Home = () => {
   }
 
   return (
-    <Dashboard>
+    <>
       <section className={css.section}>
         <Heading
           title="Przegladaj karty"
@@ -65,6 +65,6 @@ export const Home = () => {
           ))}
         </ul>
       </section>
-    </Dashboard>
+    </>
   );
 }

@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import { usePermissionCheck } from '../../common/hooks';
 import { debounce } from '../../common/utils';
 
-import { Dashboard } from '../../layouts/Dashboard';
 import { Table, Td, Tr, Th } from '../../components/Table';
 import { BasicInput } from '../../components/BasicInput';
 import { Heading } from '../../components/Heading';
@@ -24,6 +23,7 @@ export const Users = () => {
     fetchUsers();
   }, []);
 
+
   function handleUserPointsUpdate(points, userId) {
     if (points >= 1000) points = 999;
     if (points < 0) points = 0;
@@ -39,7 +39,7 @@ export const Users = () => {
   }
 
   return (
-    <Dashboard>
+    <>
       <Heading
         title="Użytkownicy"
       />
@@ -82,6 +82,6 @@ export const Users = () => {
           ))}
         </tbody>
       </Table>
-    </Dashboard>
+    </>
   );
 }

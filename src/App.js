@@ -9,6 +9,7 @@ import { PrivateRoute } from './components/PrivateRoute';
 import { MyCards } from './pages/MyCards';
 import { Users } from './pages/Users';
 import { Authorization } from './layouts/Authorization'; 
+import { Dashboard } from './layouts/Dashboard';
 
 const Login = () => (
   <Authorization mode="login" />
@@ -40,19 +41,31 @@ export const App = () => {
           <PrivateRoute
             path="/"
             exact
-            component={Home}
+            component={() => (
+              <Dashboard>
+                <Home />
+              </Dashboard>
+            )}
             group={null}
             redirectTo="/login"
           />
           <PrivateRoute
             path="/my-cards/"
-            component={MyCards}
+            component={() => (
+              <Dashboard>
+                <MyCards />
+              </Dashboard>
+            )}
             group={null}
             redirectTo="/login"
           />
           <Route
             path="/users/"
-            component={Users}
+            component={() => (
+              <Dashboard>
+                <Users />
+              </Dashboard>
+            )}
           />
         {/* </Switch> */}
       </AuthorizationProvider>
