@@ -17,7 +17,7 @@ export const Form = ({
       <h1 className={css.heading}>{title}</h1>
       {children}
       {!isLoading && error && (
-        <p className={css.error_info}>
+        <p className={css.error_info} data-testid="Form__error">
           {error}.
         </p>
       )}

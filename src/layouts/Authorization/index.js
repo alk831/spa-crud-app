@@ -46,7 +46,6 @@ const Authorization = ({ history, mode }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
   const dispatch = useDispatch();
   
   async function handleAuthentication(event) {
