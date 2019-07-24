@@ -52,11 +52,17 @@ export const Home = () => {
         />
         <ul className={css.cards_list}>
           {cards.map((card, index) => (
-            <li key={index} className={css.cards_item}>
+            <li
+              className={css.cards_item}
+              key={index}
+              data-testid="Home__cards-list"
+              data-i={index}
+            >
               <SwipeableCard
                 card={card}
                 onLiked={() => handleCardLike(card)}
                 onSkipped={removeLastCard}
+                data-testid="Home__cards-item"
               />
             </li>
           ))}

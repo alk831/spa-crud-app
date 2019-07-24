@@ -79,8 +79,9 @@ test('display error when server responds with unauthorized', async () => {
     }
   }
 
-  axiosMock.post
-    .mockImplementationOnce(() => Promise.reject(responseMock))
+  axiosMock.post.mockImplementationOnce(() => 
+    Promise.reject(responseMock)
+  );
 
   const { getByPlaceholderText, getByText, getByTestId } = render(
     <App store={store}>

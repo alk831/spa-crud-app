@@ -14,6 +14,7 @@ export const Card = ({
 }) => {
   return (
     <figure
+      data-testid="Card"
       className={css.container}
       {...props}
     >
