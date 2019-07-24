@@ -28,10 +28,10 @@ test('does not allow when user has insufficient permissions', () => {
     </Provider>
   );
   
-  expect(container.firstChild).not.toHaveTextContent('Secret content');
+  expect(container.firstChild).not.toHaveTextContent(secretMessage);
 });
 
-test('allows if user has sufficient permissions', () => {
+test('allows if user has equal or greater permissions', () => {
   const store = configureStore({
     authorization: {
       ...initialState,
@@ -46,7 +46,7 @@ test('allows if user has sufficient permissions', () => {
     </Provider>
   );
   
-  expect(container.firstChild).toHaveTextContent('Secret content');
+  expect(container.firstChild).toHaveTextContent(secretMessage);
 });
 
 test('does not allow when group is not equal to required - strict mode', () => {
@@ -64,5 +64,5 @@ test('does not allow when group is not equal to required - strict mode', () => {
     </Provider>
   );
   
-  expect(container.firstChild).not.toHaveTextContent('Secret content');
+  expect(container.firstChild).not.toHaveTextContent(secretMessage);
 });
