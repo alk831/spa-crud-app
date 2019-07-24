@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './assets/css/global.scss';
 
 import { Home } from './pages/Home';
-import { AuthorizationProvider } from './context/Authorization';
 import { PrivateRoute } from './components/PrivateRoute';
 import { MyCards } from './pages/MyCards';
 import { Users } from './pages/Users';
@@ -22,53 +21,51 @@ const Register = () => (
 export const App = () => {
   return (
     <Router>
-      <AuthorizationProvider>
-        {/* <Switch> */}
-          <PrivateRoute
-            path="/login/"
-            component={Login}
-            group={null}
-            strictGroup
-            redirectTo="/"
-          />
-          <PrivateRoute
-            path="/register/"
-            component={Register}
-            group={null}
-            strictGroup
-            redirectTo="/"
-          />
-          <PrivateRoute
-            path="/"
-            exact
-            component={() => (
-              <Dashboard>
-                <Home />
-              </Dashboard>
-            )}
-            group={null}
-            redirectTo="/login"
-          />
-          <PrivateRoute
-            path="/my-cards/"
-            component={() => (
-              <Dashboard>
-                <MyCards />
-              </Dashboard>
-            )}
-            group={null}
-            redirectTo="/login"
-          />
-          <Route
-            path="/users/"
-            component={() => (
-              <Dashboard>
-                <Users />
-              </Dashboard>
-            )}
-          />
-        {/* </Switch> */}
-      </AuthorizationProvider>
+      {/* <Switch> */}
+        <PrivateRoute
+          path="/login/"
+          component={Login}
+          group={null}
+          strictGroup
+          redirectTo="/"
+        />
+        <PrivateRoute
+          path="/register/"
+          component={Register}
+          group={null}
+          strictGroup
+          redirectTo="/"
+        />
+        <PrivateRoute
+          path="/"
+          exact
+          component={() => (
+            <Dashboard>
+              <Home />
+            </Dashboard>
+          )}
+          group={null}
+          redirectTo="/login"
+        />
+        <PrivateRoute
+          path="/my-cards/"
+          component={() => (
+            <Dashboard>
+              <MyCards />
+            </Dashboard>
+          )}
+          group={null}
+          redirectTo="/login"
+        />
+        <Route
+          path="/users/"
+          component={() => (
+            <Dashboard>
+              <Users />
+            </Dashboard>
+          )}
+        />
+      {/* </Switch> */}
     </Router>
   );
 }

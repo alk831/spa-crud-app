@@ -1,18 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import cardsMock from '../../__mocks__/cards.json';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import css from './style.scss';
 import * as Actions from '../../store/actions';
 import axios from 'axios';
 
-import { Dashboard } from '../../layouts/Dashboard';
 import { SwipeableCard } from '../../components/SwipeableCard';
 import { Deck } from '../../components/SwipeableCards';
 import { Heading } from '../../components/Heading';
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.authorization.user);
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
