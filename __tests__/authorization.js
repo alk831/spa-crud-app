@@ -1,6 +1,5 @@
-import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
-import { render, fireEvent, cleanup, waitForElement, act } from '@testing-library/react';
+import { render, fireEvent, waitForElement } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import * as axiosMock from 'axios';
 import { Login } from '../src/pages/Login';
@@ -10,7 +9,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 jest.mock('axios');
 
-let store;
 const App = ({ store, children }) => (
   <Provider store={store}>
     <Router>
@@ -19,10 +17,11 @@ const App = ({ store, children }) => (
   </Provider>
 );
 
+let store;
+
 beforeEach(() => {
   store = configureStore();
 });
-afterEach(cleanup);
 
 test('display error when email is too short', () => {
   const invalidEmail = 'test@.com';

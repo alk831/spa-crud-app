@@ -29,3 +29,5 @@ export function usePermissionCheck(allowedGroup, strictGroup = false) {
 
   return false;
 }
+
+export { usePermissionCheck as usePermissionsOf };

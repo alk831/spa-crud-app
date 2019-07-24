@@ -9,19 +9,22 @@ import {
 } from '../consts';
 import { getAuthData } from '../../common/utils';
 
-const { user, group, groups } = getAuthData();
-
-const initialState = {
-  isLoggedIn: !!user,
+export const initialState = {
+  isLoggedIn: false,
   isLoading: false,
   error: null,
-  user,
-  group,
-  groups,
+  user: null,
+  group: null,
+  groups: [],
+}
+
+const mergedState = {
+  ...initialState,
+  ...getAuthData()
 }
 
 export function authorizationReducer(
-  state = initialState,
+  state = mergedState,
   action
 ) {
   switch(action.type) {
@@ -57,14 +60,7 @@ export function authorizationReducer(
       isLoading: false,
       error: action.error.message
     }
-    case LOGOUT: return {
-      ...state,
-      isLoggedIn: false,
-      isLoading: false,
-      user: null,
-      group: null,
-      groups: []
-    }
+    case LOGOUT: return initialState;
     default: return state;
   }
 }
