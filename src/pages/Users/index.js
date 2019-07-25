@@ -8,6 +8,7 @@ import { debounce } from '../../common/utils';
 import { Table, Td, Tr, Th } from '../../components/Table';
 import { BasicInput } from '../../components/BasicInput';
 import { Heading } from '../../components/Heading';
+import { ListPlaceholder } from '../../components/Placeholders';
 
 export const Users = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,7 +56,13 @@ export const Users = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map(user => (
+          {isLoading ? (
+            <Tr>
+              <td colSpan={6}>
+                <ListPlaceholder length={6} />
+              </td>
+            </Tr>
+          ) : users.map(user => (
             <Tr key={user.id} className={css.users_row}>
               <Td>{user.id}</Td>
               <Td>{user.email}</Td>
