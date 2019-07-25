@@ -2,9 +2,9 @@ import React from 'react';
 import { render, fireEvent, waitForElement } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import * as axiosMock from 'axios';
-import { Login } from '../src/pages/Login';
-import { Register } from '../src/pages/Register';
-import { configureStore } from '../src/store/store';
+import { Login } from '../../src/pages/Login';
+import { Register } from '../../src/pages/Register';
+import { configureStore } from '../../src/store/store';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 jest.mock('axios');

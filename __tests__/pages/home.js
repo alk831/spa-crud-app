@@ -1,9 +1,9 @@
 import React from 'react';
 import * as axiosMock from 'axios';
-import { Home } from '../src/pages/Home';
+import { Home } from '../../src/pages/Home';
 import { render, waitForElement, fireEvent } from '@testing-library/react';
-import cardsMock from '../__mocks__/cardsMock';
-import { App } from './helpers';
+import cardsMock from '../../__mocks__/cardsMock';
+import { App } from '../helpers';
 
 jest.mock('axios');
 
