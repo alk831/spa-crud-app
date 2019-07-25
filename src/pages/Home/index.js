@@ -51,12 +51,11 @@ export const Home = () => {
           paragraph="Karty z największą ilością polubień"
         />
         <ul className={css.cards_list}>
-          {cards.map((card, index) => (
+          {cards.map(card => (
             <li
               className={css.cards_item}
-              key={index}
+              key={card.id}
               data-testid="Home__cards-list"
-              data-i={index}
             >
               <SwipeableCard
                 card={card}
