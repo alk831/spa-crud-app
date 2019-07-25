@@ -1,7 +1,7 @@
 import React from 'react';
 import * as axiosMock from 'axios';
 import { Home } from '../../src/pages/Home';
-import { render, waitForElement, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import cardsMock from '../../__mocks__/cardsMock';
 import { App } from '../helpers';
 
@@ -17,14 +17,14 @@ test('liking cards works properly', async () => {
     Promise.resolve({ data: { data: cardsMock[0] }})
   );
 
-  const { getAllByTestId, getAllByTitle } = render(
+  const { findAllByTestId, getAllByTitle } = render(
     <App>
       <Home />
     </App>
   );
 
-  const [firstCard] = await waitForElement(() => getAllByTestId('Home__cards-item'));
-
+  /* It catches items from cards deck  */
+  const [firstCard] = await findAllByTestId('Home__cards-item');
   const [firstCardLikeBtn] = getAllByTitle('Polub'); 
 
   fireEvent.mouseOver(firstCard);
@@ -44,13 +44,13 @@ test('skipping cards works properly', async () => {
     Promise.resolve({ data: { data: cardsMock[0] }})
   );
 
-  const { getAllByTestId, getAllByTitle } = render(
+  const { getAllByTitle, findAllByTestId } = render(
     <App>
       <Home />
     </App>
   );
 
-  const [firstCard] = await waitForElement(() => getAllByTestId('Home__cards-item'));
+  const [firstCard] = await findAllByTestId('Home__cards-item');
   const [firstCardSkipBtn] = getAllByTitle('Pomiń');
 
   fireEvent.mouseOver(firstCard);
