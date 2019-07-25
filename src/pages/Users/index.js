@@ -16,7 +16,7 @@ export const Users = () => {
 
   useEffect(() => {
     async function fetchUsers() {
-      const { data: { data }} = await axios.get('/users');
+      const { data: { data }} = await axios('/users');
       setUsers(data);
       setIsLoading(false);
     }

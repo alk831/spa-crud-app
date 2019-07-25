@@ -10,6 +10,7 @@ export const BasicInput = ({
 }) => (
   <input
     type={type}
+    data-testid="BasicInput"
     {...applyCss(
       css.container,
       css[`align_${align}`],

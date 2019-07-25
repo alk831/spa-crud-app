@@ -4,10 +4,10 @@ import { configureStore } from '../../src/store/store';
 import { initialState } from '../../src/store/reducers/authorization';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import groupsMock from '../../__mocks__/permissionGroups';
 
 const secretMessage = 'Secret content';
 const unauthorizedMessage = 'You have no permissions to see secret content';
-const groupsMock = ['user', 'moderator', 'admin'];
 
 function Component({ group = 'moderator', strict }) {
   const isAllowed = usePermissionsOf(group, strict);
