@@ -10,9 +10,11 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 
 const store = configureStore();
+const tenSeconds = 1000 * 10;
 
 axios.defaults.baseURL = HOST;
 axios.defaults.withCredentials = true;
+axios.defaults.timeout = tenSeconds;
 
 dayjs.locale('pl');
 

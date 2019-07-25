@@ -1,0 +1,16 @@
+@import "../../assets/css/index.scss";
+
+.cards_list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.cards_item {
+  margin: 50px 25px;
+  @include phone {
+    margin: 80px 15px;
+  }
+}

@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from '../../store/actions';
+import css from './style.scss';
 
 import { Card } from '../../components/Card';
+import { Heading } from '../../components/Heading';
 
 export const MyCards = () => {
   const dispatch = useDispatch();
@@ -18,15 +20,26 @@ export const MyCards = () => {
   }
 
   if (isLoading) {
-    return 'Loading...'
+    return 'Loading...';
   }
 
-  return likedCards.map(card => (
-    <Card
-      key={card.id}
-      card={card}
-      onLiked={() => {}}
-      onSkipped={() => handleCardDislike(card.id)}
-    />
-  ));
+  return (
+    <>
+      <Heading
+        title="Moje karty"
+        paragraph="Możesz przeglądać i usuwać polubione karty"
+      />
+      <ul className={css.cards_list}>
+        {likedCards.map(card => (
+          <Card
+            key={card.id}
+            card={card}
+            onSkipped={() => handleCardDislike(card.id)}
+            hideLikeButton
+            className={css.cards_item}
+          />
+        ))}
+      </ul>
+    </>
+  );
 }

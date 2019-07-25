@@ -3,6 +3,7 @@ import css from './style.scss';
 import PropTypes from 'prop-types';
 import HeartIcon from '../../assets/img/heart.svg';
 import NextIcon from '../../assets/img/next.svg';
+import { applyCss } from '../../common/utils';
 
 import { RoundedButton } from '../RoundedButton';
 
@@ -10,12 +11,17 @@ export const Card = ({
   card,
   onLiked,
   onSkipped,
+  className,
+  hideLikeButton,
   ...props
 }) => {
   return (
     <figure
       data-testid="Card"
-      className={css.container}
+      {...applyCss(
+        css.container,
+        className
+      )}
       {...props}
     >
       <img
@@ -52,12 +58,12 @@ export const Card = ({
               title="Pomiń"
               onClick={onSkipped}
             />
-            <RoundedButton
+            {!hideLikeButton && (<RoundedButton
               icon={HeartIcon}
               mode="like"
               title="Polub"
               onClick={onLiked}
-            />
+            />)}
           </div>
         </div>
       </div>
@@ -67,6 +73,7 @@ export const Card = ({
 
 Card.propTypes = {
   card: PropTypes.object.isRequired,
-  onLiked: PropTypes.func.isRequired,
-  onSkipped: PropTypes.func.isRequired
+  onLiked: PropTypes.func,
+  onSkipped: PropTypes.func,
+  hideLikeButton: PropTypes.bool
 }

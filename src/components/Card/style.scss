@@ -1,5 +1,4 @@
-@import "../../assets/css/variables.scss";
-@import "../../assets/css/zindex.scss";
+@import "../../assets/css/index.scss";
 
 .container {
   background: #fff;
@@ -32,6 +31,10 @@
     .buttons_container {
       transform: translateY(0);
     }
+  }
+  @include phone {
+    width: 450px;
+    height: 350px;
   }
 }
 
@@ -81,6 +84,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @include phone {
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 .info_title {
@@ -109,4 +116,7 @@
   }
   transform: translateY(15px);
   transition: all .5s ease;
+  @include phone {
+    margin-top: 15px;
+  }
 }

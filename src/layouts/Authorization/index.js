@@ -77,7 +77,8 @@ const Authorization = ({ history, mode }) => {
       await dispatch(Actions[actionName](email, password));
       history.push('/');
     } catch(err) {
-      const { status } = err.response;
+      const { response = {} } = err;
+      const { status } = response;
 
       if (status === 401) {
         setError('Nieprawidłowy email lub hasło');
