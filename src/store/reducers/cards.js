@@ -1,6 +1,7 @@
 import {
   CARDS_FETCH_REQUESTED,
   CARDS_POPULAR_LIKED,
+  CARDS_MORE_FETCH_SUCCEEDED,
 } from '../consts';
 
 const initialState = {
@@ -19,6 +20,16 @@ export function cardsReducer(
       ...state,
       isLoading: true,
       page: action.meta.page
+    }
+    case CARDS_FETCH_SUCCEEDED: return {
+      ...state,
+      [action.meta.target]: action.payload
+    }
+    case CARDS_MORE_FETCH_SUCCEEDED: return {
+      ...state,
+      [action.meta.target]: action.payload,
+      page: state.page + 1,
+      isLoading: false
     }
     case CARDS_POPULAR_SKIPPED:
       const [skippedCard, ...popular] = state.popular;

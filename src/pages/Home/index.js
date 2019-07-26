@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import css from './style.scss';
-import axios from 'axios';
 import * as Actions from '../../store/actions';
 import { useLoadingStatus } from '../../common/hooks';
 
@@ -13,29 +12,21 @@ import { Heading } from '../../components/Heading';
 export const Home = () => {
   const dispatch = useDispatch();
   const isLoading = useLoadingStatus();
-  // const cards = useSelector(state => state.cards.liked);
-  const [cards, setCards] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const popularCards = useSelector(state => state.cards.popular);
 
+  useEffect(() => dispatch(Actions.cardsFetchRequest('popular')), []);
   useEffect(() => {
-    async function fetchCards() {
-      if (!isLoading) setIsLoading(true);
-      const { data: { data }} = await axios('/cards/popular');
-      setCards(data);
-      setIsLoading(false);
+    if (popularCards.length === 0) {
+      dispatch(Actions.cardsMoreFetchRequest('popular'));
     }
-    fetchCards();
-
-    dispatch(Actions.fetchLikedCards());
-  }, []);
+  }, [popularCards]);
 
   const handleCardLike = (card) => {
-    dispatch(Actions.saveLikedCard(card));
-    removeLastCard();
+    dispatch(Actions.cardsPopularLike(card));
   }
 
-  const removeLastCard = () => {
-    setCards(([, ...restCards]) => restCards);
+  const handleCardSkip = (cardId) => {
+    dispatch(Actions.cardsPopularSkipped(cardId));
   }
 
   if (isLoading) {
@@ -49,7 +40,7 @@ export const Home = () => {
           title="Przegladaj karty"
           paragraph="Przesuwaj karty aby je polubić lub pominąć"
         />
-        <Deck cards={cards} />
+        <Deck cards={popularCards} />
       </section>
       <section className={css.section}>
         <Heading
@@ -57,7 +48,7 @@ export const Home = () => {
           paragraph="Karty z największą ilością polubień"
         />
         <ul className={css.cards_list}>
-          {cards.map(card => (
+          {popularCards.map(card => (
             <li
               className={css.cards_item}
               key={card.id}
@@ -66,7 +57,7 @@ export const Home = () => {
               <SwipeableCard
                 card={card}
                 onLiked={() => handleCardLike(card)}
-                onSkipped={removeLastCard}
+                onSkipped={() => handleCardSkip(card.id)}
                 data-testid="Home__cards-item"
               />
             </li>
