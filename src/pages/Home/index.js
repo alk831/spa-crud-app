@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import css from './style.scss';
-import * as Actions from '../../store/actions';
 import axios from 'axios';
+import * as Actions from '../../store/actions';
+import { useLoadingStatus } from '../../common/hooks';
 
 import { SwipeableCard } from '../../components/SwipeableCard';
 import { Deck } from '../../components/SwipeableCards';
 import { Heading } from '../../components/Heading';
 
+
 export const Home = () => {
   const dispatch = useDispatch();
+  const isLoading = useLoadingStatus();
+  // const cards = useSelector(state => state.cards.liked);
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,6 +25,8 @@ export const Home = () => {
       setIsLoading(false);
     }
     fetchCards();
+
+    dispatch(Actions.fetchLikedCards());
   }, []);
 
   const handleCardLike = (card) => {

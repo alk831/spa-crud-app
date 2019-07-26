@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from '../../store/actions';
 import css from './style.scss';
+import { useLoadingStatus } from '../../common/hooks';
 
 import { Card } from '../../components/Card';
 import { Heading } from '../../components/Heading';
@@ -9,7 +10,7 @@ import { Heading } from '../../components/Heading';
 export const MyCards = () => {
   const dispatch = useDispatch();
   const likedCards = useSelector(state => state.cards.liked);
-  const isLoading = useSelector(state => state.cards.isLoading);
+  const isLoading = useLoadingStatus();
 
   useEffect(() => {
     dispatch(Actions.fetchLikedCards());
@@ -35,8 +36,8 @@ export const MyCards = () => {
             key={card.id}
             card={card}
             onSkipped={() => handleCardDislike(card.id)}
-            hideLikeButton
             className={css.cards_item}
+            hideLikeButton
           />
         ))}
       </ul>

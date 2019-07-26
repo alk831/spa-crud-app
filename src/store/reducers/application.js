@@ -2,11 +2,15 @@ import {
   LOGIN_FAILED,
   REGISTER_FAILED,
   CARDS_FETCH_FAILED,
-  ERROR_TIMED_OUT
+  ERROR_TIMED_OUT,
+  APP_FETCH_FAILED,
+  APP_FETCH_REQUESTED
 } from '../consts';
 
 const initialState = {
-  errors: []
+  errors: [],
+  error: null,
+  isLoading: false
 }
 
 export function applicationReducer(
@@ -14,6 +18,24 @@ export function applicationReducer(
   action
 ) {
   switch(action.type) {
+    case APP_FETCH_REQUESTED: return {
+      ...state,
+      error: null,
+      isLoading: true
+    }
+    case APP_FETCH_FAILED: return {
+      ...state,
+      error: action.error,
+      isLoading: false
+    }
+    case APP_REQUEST_FAILED: return {
+      ...state,
+      error: action.error
+    }
+    case CARDS_FETCH_SUCCEEDED: return {
+      ...state,
+      isLoading: false
+    }
     case CARDS_FETCH_FAILED:
     case REGISTER_FAILED:
     case LOGIN_FAILED: return {
