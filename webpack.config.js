@@ -56,6 +56,10 @@ module.exports = {
             options: { jsx: true }
           }
         ]
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        loader: 'file-loader'
       }
     ]
   },
