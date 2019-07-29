@@ -2,7 +2,7 @@ import {
   APP_FETCH_REQUESTED,
   APP_FETCH_FAILED,
   APP_REQUEST_FAILED
-} from '../consts';
+} from '../../consts';
 
 export const appFetchRequested = () => ({
   type: APP_FETCH_REQUESTED

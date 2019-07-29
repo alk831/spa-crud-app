@@ -2,6 +2,9 @@ import {
   CARDS_FETCH_REQUESTED,
   CARDS_POPULAR_LIKED,
   CARDS_MORE_FETCH_SUCCEEDED,
+  CARDS_FETCH_SUCCEEDED,
+  CARDS_POPULAR_SKIPPED,
+  CARDS_LIKED_REMOVED,
 } from '../consts';
 
 const initialState = {
@@ -33,7 +36,7 @@ export function cardsReducer(
     }
     case CARDS_POPULAR_SKIPPED:
       const [skippedCard, ...popular] = state.popular;
-      return { ...state, popular };
+      return { ...state, popular }
     case CARDS_POPULAR_LIKED:
       const likedCardIndex = state.popular.findIndex(card =>
         card.id === action.meta.id

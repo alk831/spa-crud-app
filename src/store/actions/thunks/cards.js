@@ -1,39 +1,14 @@
 import {
-  CARD_LIKED,
-  CARD_DISLIKED,
-  CARDS_FETCH_REQUESTED,
-  CARDS_FETCH_SUCCEEDED,
-  CARDS_FETCH_FAILED,
-  CARDS_LIKED_REMOVED,
-  CARDS_POPULAR_SKIPPED,
-  CARDS_POPULAR_LIKED
-} from '../consts';
+  cardLiked,
+  cardsFetchSucceeded,
+  cardDisliked,
+  cardsMoreFetchSucceeded,
+  cardsPopularLiked,
+  appFetchRequested,
+  appRequestFailed,
+  appFetchFailed,
+} from '../creators';
 import axios from 'axios';
-import { appFetchRequested, appRequestFailed, appFetchFailed } from './application';
-
-export const cardLiked = (payload) => ({
-  type: CARD_LIKED,
-  payload
-});
-
-export const cardDisliked = (id) => ({
-  type: CARD_DISLIKED,
-  meta: { id }
-});
-
-export const cardsFetchRequested = () => ({
-  type: CARDS_FETCH_REQUESTED
-});
-
-export const cardsFetchSucceeded = (payload) => ({
-  type: CARDS_FETCH_SUCCEEDED,
-  payload
-});
-
-export const cardsFetchFailed = (error) => ({
-  type: CARDS_FETCH_FAILED,
-  error
-});
 
 export const saveLikedCard = (card) => async (dispatch) => {
   const { data: { data }} = await axios.post('/cards/favorite', card);
@@ -42,7 +17,6 @@ export const saveLikedCard = (card) => async (dispatch) => {
 
 export const removeLikedCard = (cardId) => async (dispatch) => {
   dispatch(cardDisliked(cardId));
-
   await axios.delete(`/cards/favorite/${cardId}`);
 }
 
@@ -64,15 +38,8 @@ export const fetchPopularCards = () => async (dispatch) => {
   }
 }
 
-export const cardsFetchSucceeded = (payload, target) => ({
-  type: CARDS_FETCH_SUCCEEDED,
-  payload,
-  meta: { target }
-});
-
 export const cardsFetchRequest = (target) => async (dispatch) => {
   try {
-    // dispatch();
     const parsedTarget = target === 'liked' ? 'favorite' : 'popular';
     const { data: { data }} = await axios(`/cards/${parsedTarget}`);
     dispatch(cardsFetchSucceeded(data, target));
@@ -81,13 +48,7 @@ export const cardsFetchRequest = (target) => async (dispatch) => {
   }
 }
 
-export const cardsMoreFetchSucceeded = (payload, target) => ({
-  type: CARDS_MORE_FETCH_SUCCEEDED,
-  payload,
-  meta: { target }
-});
-
-export const cardsMoreFetchRequest = (target) => async (dispatch, getState) => {
+export const cardsFetchMoreRequest = (target) => async (dispatch, getState) => {
   const parsedTarget = target === 'liked' ? 'favorite' : 'popular';
   const { page } = getState().cards;
   const nextPage = page + 1;
@@ -96,11 +57,6 @@ export const cardsMoreFetchRequest = (target) => async (dispatch, getState) => {
   dispatch(cardsMoreFetchSucceeded(data, target));
 }
 
-export const cardsLikedRemoved = (cardId) => ({
-  type: CARDS_LIKED_REMOVED,
-  meta: { id: cardId }
-});
-
 export const cardsLikedRemove = (cardId) => async (dispatch) => {
   try {
     await axios.delete(`/cards/favorite/${cardId}`);
@@ -109,16 +65,6 @@ export const cardsLikedRemove = (cardId) => async (dispatch) => {
     dispatch(appRequestFailed(error));
   }
 }
-
-export const cardsPopularSkipped = (cardId) => ({
-  type: CARDS_POPULAR_SKIPPED,
-  meta: { id: cardId }
-});
-
-export const cardsPopularLiked = (cardId) => ({
-  type: CARDS_POPULAR_LIKED,
-  meta: { id: cardId }
-});
 
 export const cardsPopularLike = (card) => async (dispatch) => {
   try {
@@ -126,19 +72,5 @@ export const cardsPopularLike = (card) => async (dispatch) => {
     await axios.post('/cards/favorite', card);
   } catch(error) {
     dispatch(appRequestFailed(error));
-  }
-}
-
-export const cardsLikedRemoved = (cardId) => ({
-  type: CARDS_LIKED_REMOVED,
-  meta: { id: cardId }
-});
-
-export const cardsLikedRemove = (cardId) => async (dispatch) => {
-  try {
-    dispatch(cardsLikedRemoved(cardId));
-    await axios.delete(`/cards/favorite/${cardId}`);
-  } catch(error) {
-    dispatch(appFetchFailed(error));
   }
 }

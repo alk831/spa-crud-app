@@ -6,9 +6,11 @@ import {
   REGISTER_REQUESTED,
   REGISTER_SUCCEEDED,
   REGISTER_FAILED
-} from '../consts';
-import axios from 'axios';
+} from '../../consts';
 
+/**
+ * @deprecated
+ */
 export const loginRequested = () => ({
   type: LOGIN_REQUESTED
 });
@@ -23,21 +25,13 @@ export const loginFailed = (error) => ({
   error
 });
 
-export const login = (email, password) => async (dispatch) => {
-  const { data: { data }} = await axios.post('/auth/login', { email, password });
-  sessionStorage.setItem('auth-data', JSON.stringify(data));
-  dispatch(loginSucceeded(data));
-}
-
 export const logout = () => ({
   type: LOGOUT 
 });
 
-export const handleLogout = () => (dispatch) => {
-  sessionStorage.removeItem('auth-data');
-  dispatch(logout());
-}
-
+/**
+ * @deprecated
+ */
 export const registerRequested = () => ({
   type: REGISTER_REQUESTED
 });
@@ -51,8 +45,3 @@ export const registerFailed = (error) => ({
   type: REGISTER_FAILED,
   error
 });
-
-export const register = (email, password) => async (dispatch) => {
-  await axios.post('/auth/register', { email, password });
-  await dispatch(login(email, password));
-}

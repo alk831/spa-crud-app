@@ -17,7 +17,7 @@ export const Home = () => {
   useEffect(() => dispatch(Actions.cardsFetchRequest('popular')), []);
   useEffect(() => {
     if (popularCards.length === 0) {
-      dispatch(Actions.cardsMoreFetchRequest('popular'));
+      dispatch(Actions.cardsFetchMoreRequest('popular'));
     }
   }, [popularCards]);
 
