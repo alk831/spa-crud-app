@@ -13,11 +13,11 @@ export const MyCards = () => {
   const isLoading = useLoadingStatus();
 
   useEffect(() => {
-    dispatch(Actions.fetchLikedCards());
+    dispatch(Actions.cardsFetchRequest('liked'));
   }, []);
 
   const handleCardDislike = (cardId) => {
-    dispatch(Actions.removeLikedCard(cardId));
+    dispatch(Actions.cardsLikedRemove(cardId));
   }
 
   if (isLoading) {

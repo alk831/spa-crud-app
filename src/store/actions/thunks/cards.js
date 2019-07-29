@@ -1,65 +1,31 @@
 import {
-  cardLiked,
   cardsFetchSucceeded,
-  cardDisliked,
   cardsMoreFetchSucceeded,
   cardsPopularLiked,
   appFetchRequested,
   appRequestFailed,
   appFetchFailed,
   cardsFetchRequested,
+  cardsDisliked,
 } from '../creators';
 import axios from 'axios';
-
-export const saveLikedCard = (card) => async (dispatch) => {
-  const { data: { data }} = await axios.post('/cards/favorite', card);
-  dispatch(cardLiked(data));
-}
-
-export const removeLikedCard = (cardId) => async (dispatch) => {
-  dispatch(cardDisliked(cardId));
-  await axios.delete(`/cards/favorite/${cardId}`);
-}
-
-export const fetchLikedCards = () => async (dispatch) => {
-  try {
-    dispatch(appFetchRequested());
-    const { data: { data }} = await axios('/cards/favorite');
-    dispatch(cardsFetchSucceeded(data, 'liked'));
-  } catch(error) {
-    dispatch(appFetchFailed(error));
-  }
-}
-
-export const fetchPopularCards = () => async (dispatch) => {
-  try {
-    dispatch(appFetchRequested());
-    const { data: { data }} = await axios('/cards/popular');
-  } catch(error) {
-  }
-}
+import { parseCardsTarget } from '../../../common/utils';
 
 export const cardsFetchRequest = (target) => async (dispatch) => {
   try {
-    const availableTargets = ['popular', 'liked'];
-
-    if (!availableTargets.includes(target)) {
-      throw new Error(
-        `Invalid target type. Must be one of ${availableTargets.join(',')}.`
-      );
-    }
-
     dispatch(cardsFetchRequested());
-    const parsedTarget = target === 'liked' ? 'favorite' : 'popular';
+    const parsedTarget = parseCardsTarget(target);
+
     const { data: { data }} = await axios(`/cards/${parsedTarget}`);
     dispatch(cardsFetchSucceeded(data, target));
+
   } catch(error) {
     dispatch(appRequestFailed(error));
   }
 }
 
-export const cardsFetchMoreRequest = (target) => async (dispatch, getState) => {
-  const parsedTarget = target === 'liked' ? 'favorite' : 'popular';
+export const cardsFetchRequestMore = (target) => async (dispatch, getState) => {
+  const parsedTarget = parseCardsTarget(target);
   const { page } = getState().cards;
   const nextPage = page + 1;
 
@@ -70,7 +36,7 @@ export const cardsFetchMoreRequest = (target) => async (dispatch, getState) => {
 export const cardsLikedRemove = (cardId) => async (dispatch) => {
   try {
     await axios.delete(`/cards/favorite/${cardId}`);
-    dispatch(cardsLikedRemoved(cardId));
+    dispatch(cardsDisliked(cardId));
   } catch(error) {
     dispatch(appRequestFailed(error));
   }
@@ -81,6 +47,7 @@ export const cardsPopularLike = (card) => async (dispatch) => {
     dispatch(cardsPopularLiked(card.id));
     await axios.post('/cards/favorite', card);
   } catch(error) {
+    console.error(error)
     dispatch(appRequestFailed(error));
   }
 }

@@ -9,12 +9,8 @@ import {
   CARDS_POPULAR_LIKED
 } from '../../consts';
 
-export const cardLiked = (payload) => ({
-  type: CARD_LIKED,
-  payload
-});
 
-export const cardDisliked = (id) => ({
+export const cardsDisliked = (id) => ({
   type: CARD_DISLIKED,
   meta: { id }
 });
@@ -22,11 +18,6 @@ export const cardDisliked = (id) => ({
 export const cardsFetchRequested = () => ({
   type: CARDS_FETCH_REQUESTED
 });
-
-// export const cardsFetchSucceeded = (payload) => ({
-//   type: CARDS_FETCH_SUCCEEDED,
-//   payload
-// });
 
 export const cardsFetchFailed = (error) => ({
   type: CARDS_FETCH_FAILED,
@@ -44,11 +35,6 @@ export const cardsMoreFetchSucceeded = (payload, target) => ({
   payload,
   meta: { target }
 });
-
-// export const cardsLikedRemoved = (cardId) => ({
-//   type: CARDS_LIKED_REMOVED,
-//   meta: { id: cardId }
-// });
 
 export const cardsPopularSkipped = (cardId) => ({
   type: CARDS_POPULAR_SKIPPED,

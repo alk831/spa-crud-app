@@ -25,3 +25,16 @@ export const getAuthData = () => {
 
   return { user: null, groups: [], group: null };
 }
+
+export const parseCardsTarget = (target) => {
+  const availableTargets = ['popular', 'liked'];
+
+  if (!availableTargets.includes(target)) {
+    throw new Error(
+      `Invalid target type. Must be one of: ${availableTargets.join(', ')}.`
+    );
+  }
+
+  const parsedTarget = target === 'liked' ? 'favorite' : 'popular';
+  return parsedTarget;
+}
