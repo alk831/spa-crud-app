@@ -2,14 +2,21 @@ import 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App, AppWithHMR } from './App';
-import firebase from 'firebase';
-import firebaseConfig from './config/firebase';
 import { Provider } from 'react-redux';
 import { configureStore } from './store/store';
+import axios from 'axios';
+import { HOST } from './common/consts';
+import dayjs from 'dayjs';
+import 'dayjs/locale/pl';
 
 const store = configureStore();
+const tenSeconds = 1000 * 10;
 
-firebase.initializeApp(firebaseConfig);
+axios.defaults.baseURL = HOST;
+axios.defaults.withCredentials = true;
+axios.defaults.timeout = tenSeconds;
+
+dayjs.locale('pl');
 
 ReactDOM.render((
   <Provider store={store}>

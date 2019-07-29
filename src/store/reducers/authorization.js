@@ -1,16 +1,30 @@
-import { LOGOUT, LOGIN_REQUESTED, LOGIN_SUCCEEDED, LOGIN_FAILED, REGISTER_REQUESTED, REGISTER_SUCCEEDED, REGISTER_FAILED } from '../consts';
-import { isDevelopment } from '../../common/consts';
+import {
+  LOGOUT,
+  LOGIN_REQUESTED,
+  LOGIN_SUCCEEDED,
+  LOGIN_FAILED,
+  REGISTER_REQUESTED,
+  REGISTER_SUCCEEDED,
+  REGISTER_FAILED
+} from '../consts';
+import { getAuthData } from '../../common/utils';
 
-const initialState = {
-  isLoggedIn: isDevelopment,
+export const initialState = {
+  isLoggedIn: false,
   isLoading: false,
-  user: {},
   error: null,
-  role: 'guest'
+  user: null,
+  group: null,
+  groups: [],
+}
+
+const mergedState = {
+  ...initialState,
+  ...getAuthData()
 }
 
 export function authorizationReducer(
-  state = initialState,
+  state = mergedState,
   action
 ) {
   switch(action.type) {
@@ -20,9 +34,11 @@ export function authorizationReducer(
     }
     case LOGIN_SUCCEEDED: return {
       ...state,
-      ...action.payload,
+      user: action.payload.user,
+      group: action.payload.user.group,
+      groups: action.payload.groups,
       isLoggedIn: true,
-      isLoading: false,
+      isLoading: false
     }
     case LOGIN_FAILED: return {
       ...state,

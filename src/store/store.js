@@ -5,9 +5,10 @@ import { isDevelopment } from '../common/consts';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export function configureStore() {
+export function configureStore(initialState) {
   const store = createStore(
     rootReducer,
+    initialState,
     composeEnhancers(
       applyMiddleware(reduxThunk)
     )

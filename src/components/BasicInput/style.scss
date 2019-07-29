@@ -1,0 +1,21 @@
+@import "../../assets/css/index.scss";
+
+.container {
+  font-family: $font-family;
+  padding: 10px;
+  border-radius: 4px;
+  border-style: none;
+  box-shadow: $card-shadow;
+  border: 1px solid rgb(193, 208, 238);
+  transition: box-shadow .25s ease, border-color .25s ease;
+  &:hover, &:focus {
+    border: 1px solid rgb(132, 153, 221);
+  }
+  &:focus {
+    border: 1px solid rgb(59, 105, 255);
+    box-shadow: 0 5px 10px 0 rgb(193, 208, 238);
+  }
+  outline: none;
+  box-sizing: border-box;
+  @extend %align;
+}

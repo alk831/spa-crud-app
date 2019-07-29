@@ -1,0 +1,31 @@
+
+$size: 20px;
+$border-size: 3px;
+
+.container,
+.container:after {
+  border-radius: 50%;
+  width: $size;
+  height: $size;
+}
+.container {
+  margin: 0 auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: $border-size solid rgba(255, 255, 255, 0.2);
+  border-right: $border-size solid rgba(255, 255, 255, 0.2);
+  border-bottom: $border-size solid rgba(255, 255, 255, 0.2);
+  border-left: $border-size solid #ffffff;
+  transform: translateZ(0);
+  animation: spinner 0.5s infinite linear;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

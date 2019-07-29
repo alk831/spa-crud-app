@@ -1,0 +1,33 @@
+@import "../../assets/css/variables.scss";
+
+.container {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-family: $font-family;
+  border-style: none;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  position: relative;
+  &.like {
+    $color: #E054B9; 
+    background-color: $color;
+    box-shadow: 0px 10px 20px rgba($color, 0.736);
+  }
+  &.skip {
+    $color: #5467CC;
+    background-color: $color;
+    box-shadow: 0px 10px 20px rgba($color, 0.73);
+  }
+}
+
+.icon {
+  $size: 26px;
+  width: $size;
+  height: $size;
+  fill: #fff;
+}
