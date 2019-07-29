@@ -4,9 +4,9 @@ import css from './style.scss';
 import * as Actions from '../../store/actions';
 import { Helmet } from 'react-helmet';
 
-import { SwipeableCard } from '../../components/SwipeableCard';
 import { Deck } from '../../components/SwipeableCards';
 import { Heading } from '../../components/Heading';
+import { Card } from '../../components/Card';
 
 
 export const Home = () => {
@@ -59,7 +59,7 @@ export const Home = () => {
               key={card.id}
               data-testid="Home__cards-list"
             >
-              <SwipeableCard
+              <Card
                 card={card}
                 onLiked={() => handleCardLike(card)}
                 onSkipped={() => handleCardSkip(card.id)}

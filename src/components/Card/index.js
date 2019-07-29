@@ -58,12 +58,14 @@ export const Card = ({
               title="Pomiń"
               onClick={onSkipped}
             />
-            {!hideLikeButton && (<RoundedButton
-              icon={HeartIcon}
-              mode="like"
-              title="Polub"
-              onClick={onLiked}
-            />)}
+            {!hideLikeButton && (
+              <RoundedButton
+                icon={HeartIcon}
+                mode="like"
+                title="Polub"
+                onClick={onLiked}
+              />
+            )}
           </div>
         </div>
       </div>
