@@ -5,7 +5,6 @@ import {
   CARDS_FETCH_SUCCEEDED,
   CARDS_POPULAR_SKIPPED,
   CARDS_LIKED_REMOVED,
-  CARD_DISLIKED,
   CARD_LIKED,
 } from '../consts';
 
@@ -55,7 +54,7 @@ export function cardsReducer(
         popular: popularCards,
         liked: likedCards
       }
-    case CARD_DISLIKED: return {
+    case CARDS_LIKED_REMOVED: return {
       ...state,
       liked: state.liked.filter(card => card.id !== action.meta.id)
     }

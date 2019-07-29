@@ -1,18 +1,17 @@
 import {
-  CARD_LIKED,
-  CARD_DISLIKED,
   CARDS_FETCH_REQUESTED,
   CARDS_FETCH_SUCCEEDED,
   CARDS_FETCH_FAILED,
   CARDS_LIKED_REMOVED,
   CARDS_POPULAR_SKIPPED,
-  CARDS_POPULAR_LIKED
+  CARDS_POPULAR_LIKED,
+  CARDS_FETCH_MORE_SUCCEEDED
 } from '../../consts';
 
 
-export const cardsDisliked = (id) => ({
-  type: CARD_DISLIKED,
-  meta: { id }
+export const cardsLikedRemoved = (cardId) => ({
+  type: CARDS_LIKED_REMOVED,
+  meta: { id: cardId }
 });
 
 export const cardsFetchRequested = () => ({
@@ -30,8 +29,8 @@ export const cardsFetchSucceeded = (payload, target) => ({
   meta: { target }
 });
 
-export const cardsMoreFetchSucceeded = (payload, target) => ({
-  type: CARDS_MORE_FETCH_SUCCEEDED,
+export const cardsFetchMoreSucceeded = (payload, target) => ({
+  type: CARDS_FETCH_MORE_SUCCEEDED,
   payload,
   meta: { target }
 });

@@ -1,12 +1,10 @@
 import {
   cardsFetchSucceeded,
-  cardsMoreFetchSucceeded,
   cardsPopularLiked,
-  appFetchRequested,
   appRequestFailed,
-  appFetchFailed,
   cardsFetchRequested,
-  cardsDisliked,
+  cardsLikedRemoved,
+  cardsFetchMoreSucceeded,
 } from '../creators';
 import axios from 'axios';
 import { parseCardsTarget } from '../../../common/utils';
@@ -30,13 +28,13 @@ export const cardsFetchRequestMore = (target) => async (dispatch, getState) => {
   const nextPage = page + 1;
 
   const { data: { data }} = await axios(`/cards/${parsedTarget}?page=${nextPage}`);
-  dispatch(cardsMoreFetchSucceeded(data, target));
+  dispatch(cardsFetchMoreSucceeded(data, target));
 }
 
 export const cardsLikedRemove = (cardId) => async (dispatch) => {
   try {
     await axios.delete(`/cards/favorite/${cardId}`);
-    dispatch(cardsDisliked(cardId));
+    dispatch(cardsLikedRemoved(cardId));
   } catch(error) {
     dispatch(appRequestFailed(error));
   }

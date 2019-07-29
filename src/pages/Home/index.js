@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import css from './style.scss';
 import * as Actions from '../../store/actions';
-import { useLoadingStatus } from '../../common/hooks';
 
 import { SwipeableCard } from '../../components/SwipeableCard';
 import { Deck } from '../../components/SwipeableCards';
@@ -19,7 +18,7 @@ export const Home = () => {
   }, []);
   useEffect(() => {
     if (!isLoading && popularCards.length === 0) {
-      dispatch(Actions.cardsFetchMoreRequest('popular'));
+      dispatch(Actions.cardsFetchRequestMore('popular'));
     }
   }, [popularCards]);
 
