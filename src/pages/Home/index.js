@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import css from './style.scss';
 import * as Actions from '../../store/actions';
+import { Helmet } from 'react-helmet';
 
 import { SwipeableCard } from '../../components/SwipeableCard';
 import { Deck } from '../../components/SwipeableCards';
@@ -36,6 +37,9 @@ export const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Strona główna</title>
+      </Helmet>
       <section className={css.section}>
         <Heading
           title="Przegladaj karty"

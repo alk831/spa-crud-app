@@ -1,7 +1,7 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import './assets/css/global.scss';
+import { Helmet } from 'react-helmet';
 
 import { Home } from './pages/Home';
 import { PrivateRoute } from './components/PrivateRoute';
@@ -20,53 +20,58 @@ const Register = () => (
 
 export const App = () => {
   return (
-    <Router>
-      {/* <Switch> */}
-        <PrivateRoute
-          path="/login/"
-          component={Login}
-          group={null}
-          strictGroup
-          redirectTo="/"
-        />
-        <PrivateRoute
-          path="/register/"
-          component={Register}
-          group={null}
-          strictGroup
-          redirectTo="/"
-        />
-        <PrivateRoute
-          path="/"
-          exact
-          component={() => (
-            <Dashboard>
-              <Home />
-            </Dashboard>
-          )}
-          group={null}
-          redirectTo="/login"
-        />
-        <PrivateRoute
-          path="/my-cards/"
-          component={() => (
-            <Dashboard>
-              <MyCards />
-            </Dashboard>
-          )}
-          group={null}
-          redirectTo="/login"
-        />
-        <Route
-          path="/users/"
-          component={() => (
-            <Dashboard>
-              <Users />
-            </Dashboard>
-          )}
-        />
-      {/* </Switch> */}
-    </Router>
+    <>
+      <Helmet
+        titleTemplate="%s - Card picker"
+      />
+      <Router>
+        {/* <Switch> */}
+          <PrivateRoute
+            path="/login/"
+            component={Login}
+            group={null}
+            strictGroup
+            redirectTo="/"
+          />
+          <PrivateRoute
+            path="/register/"
+            component={Register}
+            group={null}
+            strictGroup
+            redirectTo="/"
+          />
+          <PrivateRoute
+            path="/"
+            exact
+            component={() => (
+              <Dashboard>
+                <Home />
+              </Dashboard>
+            )}
+            group={null}
+            redirectTo="/login"
+          />
+          <PrivateRoute
+            path="/my-cards/"
+            component={() => (
+              <Dashboard>
+                <MyCards />
+              </Dashboard>
+            )}
+            group={null}
+            redirectTo="/login"
+          />
+          <Route
+            path="/users/"
+            component={() => (
+              <Dashboard>
+                <Users />
+              </Dashboard>
+            )}
+          />
+        {/* </Switch> */}
+      </Router>
+    </>
   );
 }
 

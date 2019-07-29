@@ -5,6 +5,7 @@ import * as Actions from '../../store/actions';
 import css from './style.scss';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 
 import { Form, FormField } from '../../components/Form';
 
@@ -92,6 +93,9 @@ const Authorization = ({ history, mode }) => {
 
   return (
     <main className={css.container}>
+      <Helmet>
+        <title>{formData[mode].title}</title>
+      </Helmet>
       <Form
         onSubmit={handleAuthentication}
         isLoading={isLoading}

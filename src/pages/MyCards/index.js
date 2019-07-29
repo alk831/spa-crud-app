@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from '../../store/actions';
 import css from './style.scss';
 import { useLoadingStatus } from '../../common/hooks';
+import { Helmet } from 'react-helmet';
 
 import { Card } from '../../components/Card';
 import { Heading } from '../../components/Heading';
@@ -26,6 +27,9 @@ export const MyCards = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Moje karty</title>
+      </Helmet>
       <Heading
         title="Moje karty"
         paragraph="Możesz przeglądać i usuwać polubione karty"

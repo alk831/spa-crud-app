@@ -4,6 +4,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { usePermissionCheck } from '../../common/hooks';
 import { debounce } from '../../common/utils';
+import { Helmet } from 'react-helmet';
 
 import { Table, Td, Tr, Th } from '../../components/Table';
 import { BasicInput } from '../../components/BasicInput';
@@ -41,6 +42,9 @@ export const Users = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Użytkownicy</title>
+      </Helmet>
       <Heading
         title="Użytkownicy"
       />

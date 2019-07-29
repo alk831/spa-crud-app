@@ -1,4 +1,5 @@
 import 'react-hot-loader';
+import './assets/css/global.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App, AppWithHMR } from './App';
