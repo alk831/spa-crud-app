@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import css from './style.scss';
 import * as Actions from '../../store/actions';
 import { useLoadingStatus } from '../../common/hooks';
@@ -11,12 +11,14 @@ import { Heading } from '../../components/Heading';
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const isLoading = useLoadingStatus();
+  const isLoading = useSelector(state => state.cards.isLoading);
   const popularCards = useSelector(state => state.cards.popular);
 
-  useEffect(() => dispatch(Actions.cardsFetchRequest('popular')), []);
   useEffect(() => {
-    if (popularCards.length === 0) {
+    dispatch(Actions.cardsFetchRequest('popular'))
+  }, []);
+  useEffect(() => {
+    if (!isLoading && popularCards.length === 0) {
       dispatch(Actions.cardsFetchMoreRequest('popular'));
     }
   }, [popularCards]);

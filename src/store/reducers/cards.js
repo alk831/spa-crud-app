@@ -5,6 +5,7 @@ import {
   CARDS_FETCH_SUCCEEDED,
   CARDS_POPULAR_SKIPPED,
   CARDS_LIKED_REMOVED,
+  CARD_DISLIKED,
 } from '../consts';
 
 const initialState = {
@@ -22,11 +23,14 @@ export function cardsReducer(
     case CARDS_FETCH_REQUESTED: return {
       ...state,
       isLoading: true,
-      page: action.meta.page
+      page: action.meta
+        ? action.meta.page
+        : state.page
     }
     case CARDS_FETCH_SUCCEEDED: return {
       ...state,
-      [action.meta.target]: action.payload
+      [action.meta.target]: action.payload,
+      isLoading: false
     }
     case CARDS_MORE_FETCH_SUCCEEDED: return {
       ...state,
@@ -49,7 +53,7 @@ export function cardsReducer(
         popular: popularCards,
         liked: likedCards
       }
-    case CARDS_LIKED_REMOVED: return {
+    case CARD_DISLIKED: return {
       ...state,
       liked: state.liked.filter(card => card.id !== action.meta.id)
     }

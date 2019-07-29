@@ -7,6 +7,7 @@ import {
   appFetchRequested,
   appRequestFailed,
   appFetchFailed,
+  cardsFetchRequested,
 } from '../creators';
 import axios from 'axios';
 
@@ -24,7 +25,7 @@ export const fetchLikedCards = () => async (dispatch) => {
   try {
     dispatch(appFetchRequested());
     const { data: { data }} = await axios('/cards/favorite');
-    dispatch(cardsFetchSucceeded(data));
+    dispatch(cardsFetchSucceeded(data, 'liked'));
   } catch(error) {
     dispatch(appFetchFailed(error));
   }
@@ -40,6 +41,15 @@ export const fetchPopularCards = () => async (dispatch) => {
 
 export const cardsFetchRequest = (target) => async (dispatch) => {
   try {
+    const availableTargets = ['popular', 'liked'];
+
+    if (!availableTargets.includes(target)) {
+      throw new Error(
+        `Invalid target type. Must be one of ${availableTargets.join(',')}.`
+      );
+    }
+
+    dispatch(cardsFetchRequested());
     const parsedTarget = target === 'liked' ? 'favorite' : 'popular';
     const { data: { data }} = await axios(`/cards/${parsedTarget}`);
     dispatch(cardsFetchSucceeded(data, target));

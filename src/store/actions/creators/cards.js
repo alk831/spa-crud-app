@@ -45,10 +45,10 @@ export const cardsMoreFetchSucceeded = (payload, target) => ({
   meta: { target }
 });
 
-export const cardsLikedRemoved = (cardId) => ({
-  type: CARDS_LIKED_REMOVED,
-  meta: { id: cardId }
-});
+// export const cardsLikedRemoved = (cardId) => ({
+//   type: CARDS_LIKED_REMOVED,
+//   meta: { id: cardId }
+// });
 
 export const cardsPopularSkipped = (cardId) => ({
   type: CARDS_POPULAR_SKIPPED,
