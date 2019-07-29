@@ -4,31 +4,6 @@ import { useGesture } from 'react-use-gesture';
 import { Card } from '../Card';
 import css from './style.scss';
 
-// const transition = (rotation, scale) => 
-//   `perspective(1500px) ` +
-//   `rotateX(30deg) ` +
-//   `rotateY(${rotation / 10} deg) ` +
-//   `rotateZ(${rotation}deg) ` +
-//   `scale(${scale})`;
-
-// export const SwipeableCards = ({ cards }) => {
-//   const [gone] = useState(() => new Set());
-//   const [props, set] = useSprings(cards.length, i => ({
-//     to: {
-//       x: 0,
-//       y: i * -4,
-//       scale: 1,
-//       rot: -10 + Math.random() * 20,
-//       delay: i * 100
-//     },
-//     from: {
-//       x: 0,
-//       rot: 0,
-//       scale: 1.5,
-//       y: -1000
-//     }
-//   }));
-
 // These two are just helpers, they curate spring data, values that are later being interpolated into css
 const to = i => ({ x: 0, y: i * -4, scale: 1, rot: -10 + Math.random() * 20, delay: i * 100 })
 const from = i => ({ x: 0, rot: 0, scale: 1.2, y: -1000 })
