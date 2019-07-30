@@ -36,5 +36,5 @@ PrivateRoute.propTypes = {
    */
   strictGroup: PropTypes.bool,
   /** Adress of the page that user will be redirected to, if He has no permissions. */
-  redirectTo: PropTypes.string.isRequired
+  redirectTo: PropTypes.string
 }
