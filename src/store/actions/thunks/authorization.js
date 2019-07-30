@@ -1,19 +1,23 @@
-import { loginSucceeded, logout } from '../creators';
+import { authLoggedOut, authLoggedIn } from '../creators';
 import axios from 'axios';
 import { AUTH_DATA } from '../../../common/consts';
 
-export const login = (email, password) => async (dispatch) => {
+export const authLogin = (email, password) => async (dispatch) => {
   const { data: { data }} = await axios.post('/auth/login', { email, password });
   sessionStorage.setItem(AUTH_DATA, JSON.stringify(data));
-  dispatch(loginSucceeded(data));
+  dispatch(authLoggedIn(data));
 }
 
-export const handleLogout = () => (dispatch) => {
-  sessionStorage.removeItem(AUTH_DATA);
-  dispatch(logout());
-}
-
-export const register = (email, password) => async (dispatch) => {
+export const authRegister = (email, password) => async (dispatch) => {
   await axios.post('/auth/register', { email, password });
-  await dispatch(login(email, password));
+  await dispatch(authLogin(email, password));
 }
+
+export const authLogout = () => (dispatch) => {
+  sessionStorage.removeItem(AUTH_DATA);
+  dispatch(authLoggedOut());
+}
+
+export { authLogin as login }; 
+export { authLogout as handleLogout };
+export { authRegister as register };
