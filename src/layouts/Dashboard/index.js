@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import css from './style.scss';
-import { logout } from '../../store/actions';
+import { handleLogout } from '../../store/actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ class Dashboard extends React.Component {
   }
 
   handleLogout = () => {
-    this.props.logout();
+    this.props.handleLogout();
     this.props.history.push('/login');
   }
 
@@ -71,8 +71,8 @@ class Dashboard extends React.Component {
 }
 
 const ConnectedDashboard = connect(
-  ({ authorization }) => ({ user: authorization.user }),
-  { logout }
+  (state) => ({ user: state.authorization.user }),
+  { handleLogout }
 )(Dashboard);
 
 const DashboardWithRouter = withRouter(ConnectedDashboard);

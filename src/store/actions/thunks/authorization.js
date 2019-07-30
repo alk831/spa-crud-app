@@ -1,14 +1,15 @@
 import { loginSucceeded, logout } from '../creators';
 import axios from 'axios';
+import { AUTH_DATA } from '../../../common/consts';
 
 export const login = (email, password) => async (dispatch) => {
   const { data: { data }} = await axios.post('/auth/login', { email, password });
-  sessionStorage.setItem('auth-data', JSON.stringify(data));
+  sessionStorage.setItem(AUTH_DATA, JSON.stringify(data));
   dispatch(loginSucceeded(data));
 }
 
 export const handleLogout = () => (dispatch) => {
-  sessionStorage.removeItem('auth-data');
+  sessionStorage.removeItem(AUTH_DATA);
   dispatch(logout());
 }
 
