@@ -4,6 +4,8 @@ import {
 } from '../consts';
 import { getAuthData } from '../../common/utils';
 
+const authData = getAuthData();
+
 export const initialState = {
   isLoggedIn: false,
   user: null,
@@ -13,7 +15,8 @@ export const initialState = {
 
 const mergedState = {
   ...initialState,
-  ...getAuthData()
+  ...authData,
+  isLoggedIn: !!authData.user
 }
 
 export function authorizationReducer(

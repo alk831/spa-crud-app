@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import css from './style.scss';
 import { authLogout } from '../../store/actions';
 import { connect } from 'react-redux';
@@ -21,19 +21,33 @@ const dashboardLinks = [
   {
     path: '/users',
     title: 'Użytkownicy',
-    requiredGroup: GROUP.MODERATOR
+    allowedGroup: GROUP.MODERATOR
   }
 ]
 
 class Dashboard extends React.Component {
-  
-  state = {
-    error: null,
-    filteredLinks: this.getFilteredLinks()
-  }
 
   static getDerivedStateFromError(error) {
     return { error };
+  }
+  
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      error: null,
+      hasPermissions: this.getPermissionStatus(props.group),
+      filteredLinks: this.getFilteredLinks()
+    }
+  }
+
+  getPermissionStatus(allowedGroup, inheritance = true) {
+    return checkPermissionsOf({
+      userGroup: this.props.authorization.group,
+      groups: this.props.authorization.groups,
+      allowedGroup,
+      inheritance
+    });
   }
 
   handleLogout = () => {
@@ -41,28 +55,11 @@ class Dashboard extends React.Component {
     this.props.history.push('/login');
   }
 
-  componentDidUpdate(prevProps) {
-    const { group, groups } = this.props;
-    const { group: prevGroup, groups: prevGroups } = prevProps.authorization;
-
-    if (group !== prevGroup || groups !== prevGroups) {
-      this.setState({
-        filteredLinks: this.getFilteredLinks()
-      });
-    }
-  }
-
   getFilteredLinks = () => dashboardLinks.filter(link => {
-    if (link.requiredGroup) {
-      const { group, groups } = this.props.authorization;
-
-      const hasPermissions = checkPermissionsOf({
-        allowedGroup: link.requiredGroup,
-        userGroup: group,
-        inheritance: true,
-        groups
-      });
-
+    if (link.allowedGroup) {
+      const hasPermissions = this.getPermissionStatus(
+        link.allowedGroup
+      );
       return hasPermissions;
     }
     return true;
@@ -71,6 +68,10 @@ class Dashboard extends React.Component {
   render() {
     const { error, filteredLinks } = this.state;
     const { user } = this.props.authorization;
+
+    if (!this.state.hasPermissions) {
+      return <Redirect to="/login" />;
+    }
 
     return (
       <main className={css.container}>

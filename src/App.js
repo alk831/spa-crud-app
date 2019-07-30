@@ -33,19 +33,17 @@ export const App = () => {
             strictGroup
             redirectTo="/"
           />
-          <Dashboard path="/">
-            <PrivateRoute
+          <Dashboard path="/" group={GROUP.USER}>
+            <Route
               path="/"
               exact
               component={Home}
-              group={GROUP.USER}
-            />
-            <PrivateRoute
-              path="/my-cards/"
-              component={MyCards}
-              group={GROUP.USER}
             />
             <Route
+              path="/my-cards/"
+              component={MyCards}
+            />
+            <PrivateRoute
               path="/users/"
               component={Users}
               group={GROUP.MODERATOR}
