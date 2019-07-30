@@ -17,7 +17,3 @@ export const authLogout = () => (dispatch) => {
   sessionStorage.removeItem(AUTH_DATA);
   dispatch(authLoggedOut());
 }
-
-export { authLogin as login }; 
-export { authLogout as handleLogout };
-export { authRegister as register };

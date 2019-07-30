@@ -1,23 +1,35 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import css from './style.scss';
-import { handleLogout } from '../../store/actions';
+import { authLogout } from '../../store/actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
+import { GROUP } from '../../common/consts';
 import { UserInfo } from '../../components/UserInfo';
 import { BasicButton } from '../../components/BasicButton';
+import { checkPermissionsOf } from '../../middleware';
 
 const dashboardLinks = [
-  { title: 'Strona główna', path: '/' },
-  { title: 'Moje karty', path: '/my-cards' },
-  { title: 'Użytkownicy', path: '/users' },
+  {
+    path: '/',
+    title: 'Strona główna',
+  },
+  {
+    path: '/my-cards',
+    title: 'Moje karty',
+  },
+  {
+    path: '/users',
+    title: 'Użytkownicy',
+    requiredGroup: GROUP.MODERATOR
+  }
 ]
 
 class Dashboard extends React.Component {
   
   state = {
-    error: null
+    error: null,
+    filteredLinks: this.getFilteredLinks()
   }
 
   static getDerivedStateFromError(error) {
@@ -25,20 +37,48 @@ class Dashboard extends React.Component {
   }
 
   handleLogout = () => {
-    this.props.handleLogout();
+    this.props.authLogout();
     this.props.history.push('/login');
   }
 
+  componentDidUpdate(prevProps) {
+    const { group, groups } = this.props;
+    const { group: prevGroup, groups: prevGroups } = prevProps.authorization;
+
+    if (group !== prevGroup || groups !== prevGroups) {
+      this.setState({
+        filteredLinks: this.getFilteredLinks()
+      });
+    }
+  }
+
+  getFilteredLinks = () => dashboardLinks.filter(link => {
+    if (link.requiredGroup) {
+      const { group, groups } = this.props.authorization;
+
+      const hasPermissions = checkPermissionsOf({
+        allowedGroup: link.requiredGroup,
+        userGroup: group,
+        inheritance: true,
+        groups
+      });
+
+      return hasPermissions;
+    }
+    return true;
+  });
+
   render() {
-    const { error } = this.state;
+    const { error, filteredLinks } = this.state;
+    const { user } = this.props.authorization;
 
     return (
       <main className={css.container}>
         <nav className={css.menu_container}>
-          <UserInfo user={this.props.user} />
+          <UserInfo user={user} />
           <ul className={css.menu_list}>
-            {dashboardLinks.map((link, i) => (
-              <li key={i}>
+            {filteredLinks.map(link => (
+              <li key={link.title}>
                 <NavLink
                   className={css.menu_link}
                   activeClassName={css.menu_link__active}
@@ -71,8 +111,8 @@ class Dashboard extends React.Component {
 }
 
 const ConnectedDashboard = connect(
-  (state) => ({ user: state.authorization.user }),
-  { handleLogout }
+  (state) => ({ authorization: state.authorization }),
+  { authLogout }
 )(Dashboard);
 
 const DashboardWithRouter = withRouter(ConnectedDashboard);
