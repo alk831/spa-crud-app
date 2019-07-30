@@ -53,7 +53,7 @@ const Authorization = ({ history, mode }) => {
     event.preventDefault();
     const minEmailLenght = 4;
     const minPassLength = 4;
-    const actionName = mode;
+    const actionName = mode === 'login' ? 'authLogin' : 'authRegister';
 
     if (isLoading) {
       return;
