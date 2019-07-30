@@ -8,10 +8,15 @@ export const BasicButton = ({
   children = title,
   className,
   isLoading,
+  theme = 'blue',
   ...props
 }) => (
   <button
-    {...applyCss(css.container, className)}
+    {...applyCss(
+      css.container,
+      css[`theme_${theme}`],
+      className
+    )}
     {...props}
   >
     {isLoading ? <Spinner /> : children}

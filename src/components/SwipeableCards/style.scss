@@ -1,5 +1,4 @@
-@import "../../assets/css/zindex.scss";
-@import "../../assets/css/variables.scss";
+@import "../../assets/css/index.scss";
 
 .card {
   width: 100%;
@@ -17,7 +16,6 @@
   box-shadow: inset 0 -150px 150px -150px rgb(200, 207, 211);
   width: 100%;
   box-sizing: border-box;
-  // align-self: flex-end;
   margin-top: auto;
 }
 
@@ -42,6 +40,6 @@
   left: 0;
   opacity: 1;
   border-radius: 5px;
-  z-index: $card-overflow;
+  z-index: $z_card-overflow;
   color: rgb(255, 8, 68);
 }

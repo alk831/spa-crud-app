@@ -8,6 +8,8 @@ import { GROUP } from '../../common/consts';
 import { UserInfo } from '../../components/UserInfo';
 import { BasicButton } from '../../components/BasicButton';
 import { checkPermissionsOf } from '../../middleware';
+import MenuIcon from '../../assets/img/menu.svg';
+import { applyCss } from '../../common/utils';
 
 const dashboardLinks = [
   {
@@ -37,7 +39,8 @@ class Dashboard extends React.Component {
     this.state = {
       error: null,
       hasPermissions: this.getPermissionStatus(props.group),
-      filteredLinks: this.getFilteredLinks()
+      filteredLinks: this.getFilteredLinks(),
+      isMenuOpened: false
     }
   }
 
@@ -75,7 +78,16 @@ class Dashboard extends React.Component {
 
     return (
       <main className={css.container}>
-        <nav className={css.menu_container}>
+        <button
+          className={css.menu_button}
+          onClick={() => this.setState({ isMenuOpened: true })}
+        >
+          <MenuIcon fill="#101E45" />
+        </button>
+        <nav {...applyCss(
+          css.menu_container,
+          this.state.isMenuOpened && css.menu_container__opened
+        )}>
           <UserInfo user={user} />
           <ul className={css.menu_list}>
             {filteredLinks.map(link => (
@@ -94,10 +106,17 @@ class Dashboard extends React.Component {
           <BasicButton
             className={css.logout_btn}
             onClick={this.handleLogout}
+            theme="white"
           >
             Wyloguj się
           </BasicButton>
         </nav>
+        {this.state.isMenuOpened && (
+          <div
+            className={css.menu_background}
+            onClick={() => this.setState({ isMenuOpened: false })}
+          ></div>
+        )}
         <article className={css.content_container}>
           {error ? (
             <div>
