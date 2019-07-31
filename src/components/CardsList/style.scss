@@ -10,6 +10,7 @@
 
 .cards_item {
   margin: 50px 25px;
+  list-style-type: none;
   @include phone {
     margin: 80px 15px;
   }

@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { GROUP } from '../../common/consts';
 import { NavMenu } from '../../components/NavMenu';
 import { checkPermissionsOf } from '../../middleware';
+import { InfoMessage } from '../../components/InfoMessage';
 
 const dashboardLinks = [
   {
@@ -80,12 +81,10 @@ class Dashboard extends React.Component {
           handleLogout={this.handleLogout}
         />
         <article className={css.content_container}>
-          {error ? (
-            <div>
-              Wysątpił błąd: 
-              <p>{error.message}</p>
-            </div>
-          ) : this.props.children}
+          {error
+            ? <InfoMessage text={error.message} theme="error" />
+            : this.props.children
+          }
         </article>
       </main>
     );

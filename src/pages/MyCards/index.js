@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import * as Actions from '../../store/actions';
-import css from './style.scss';
 import { useCardsFetcher } from '../../common/hooks';
 import { Helmet } from 'react-helmet';
 import { Card } from '../../components/Card';
 import { Heading } from '../../components/Heading';
 import { CardPlaceholder }  from '../../components/Placeholders';
+import { CardsList } from '../../components/CardsList';
+import { InfoMessage } from '../../components/InfoMessage';
 
 export const MyCards = () => {
   const dispatch = useDispatch();
@@ -25,20 +26,19 @@ export const MyCards = () => {
       return <CardPlaceholder />;
     }
     if (isDataOver) {
-      return 'Nie znaleziono więcej';
+      return <InfoMessage text="Nie polubiłeś żadnych kart" />
     }
     return (
-      <ul className={css.cards_list}>
-        {data.map(card => (
+      <CardsList
+        cards={data}
+        renderCard={card => (
           <Card
-            key={card.id}
             card={card}
             onSkipped={() => handleCardDislike(card.id)}
-            className={css.cards_item}
             hideLikeButton
           />
-        ))}
-      </ul>
+        )}
+      />
     );
   }
 
