@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as Actions from '../../store/actions';
 import css from './style.scss';
-import { useLoadingStatus } from '../../common/hooks';
+import { useCardsFetcher } from '../../common/hooks';
 import { Helmet } from 'react-helmet';
-
 import { Card } from '../../components/Card';
 import { Heading } from '../../components/Heading';
 
 export const MyCards = () => {
   const dispatch = useDispatch();
-  const likedCards = useSelector(state => state.cards.liked);
-  const isLoading = useLoadingStatus();
+  const { data, isLoading, isDataOver } = useCardsFetcher('liked');
 
   useEffect(() => {
     dispatch(Actions.cardsFetchRequest('liked'));
@@ -21,8 +19,26 @@ export const MyCards = () => {
     dispatch(Actions.cardsLikedRemove(cardId));
   }
 
-  if (isLoading) {
-    return 'Loading...';
+  const result = () => {
+    if (isLoading) {
+      return 'Trwa ładowanie...';
+    }
+    if (isDataOver) {
+      return 'Nie znaleziono więcej';
+    }
+    return (
+      <ul className={css.cards_list}>
+        {data.map(card => (
+          <Card
+            key={card.id}
+            card={card}
+            onSkipped={() => handleCardDislike(card.id)}
+            className={css.cards_item}
+            hideLikeButton
+          />
+        ))}
+      </ul>
+    );
   }
 
   return (
@@ -34,17 +50,7 @@ export const MyCards = () => {
         title="Moje karty"
         paragraph="Możesz przeglądać i usuwać polubione karty"
       />
-      <ul className={css.cards_list}>
-        {likedCards.map(card => (
-          <Card
-            key={card.id}
-            card={card}
-            onSkipped={() => handleCardDislike(card.id)}
-            className={css.cards_item}
-            hideLikeButton
-          />
-        ))}
-      </ul>
+      {result()}
     </>
   );
 }

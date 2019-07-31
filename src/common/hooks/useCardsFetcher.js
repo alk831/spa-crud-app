@@ -12,6 +12,7 @@ export function useCardsFetcher(target) {
   const dispatch = useDispatch();
   const cardsData = useSelector(state => state.cards[target]);
   const isDataEmpty = cardsData.length === 0; 
+  const isDataOver = isDataEmpty && isLastPage;
 
   async function fetchCards() {
     if (isLastPage) return;
@@ -19,7 +20,7 @@ export function useCardsFetcher(target) {
     setIsLoading(true);
 
     const lastPageStatus = await dispatch(
-      Actions.cardsFetchRequest('popular', page)
+      Actions.cardsFetchRequest(target, page)
     );
 
     setIsLastPage(lastPageStatus);
@@ -41,6 +42,7 @@ export function useCardsFetcher(target) {
     isLoading,
     fetchCards,
     isLastPage,
-    isDataEmpty
+    isDataEmpty,
+    isDataOver
   }
 }
