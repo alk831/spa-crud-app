@@ -1,5 +1,6 @@
 import React from 'react';
 import css from './style.scss';
+import PropTypes from 'prop-types';
 
 export const Heading = ({
   number = 1,
@@ -19,4 +20,10 @@ export const Heading = ({
       )}
     </>
   );
+}
+
+Heading.propTypes = {
+  number: PropTypes.number,
+  title: PropTypes.string.isRequired,
+  paragraph: PropTypes.string
 }

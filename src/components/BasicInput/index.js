@@ -1,6 +1,7 @@
 import React from 'react';
 import css from './style.scss';
 import { applyCss } from '../../common/utils';
+import PropTypes from 'prop-types';
 
 export const BasicInput = ({
   type = 'text',
@@ -19,3 +20,9 @@ export const BasicInput = ({
     {...props}
   />
 );
+
+BasicInput.propTypes = {
+  type: PropTypes.string,
+  align: PropTypes.oneOf(['left', 'center', 'right']),
+  className: PropTypes.string
+}
