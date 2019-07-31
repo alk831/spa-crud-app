@@ -1,7 +1,6 @@
 import {
   cardsFetchSucceeded,
   cardsPopularLiked,
-  appErrorOccured,
   cardsLikedRemoved,
   appErrorOccured,
 } from '../creators';

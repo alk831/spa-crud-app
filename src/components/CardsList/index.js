@@ -7,15 +7,11 @@ export const CardsList = ({ cards, renderCard }) => (
   <Flipper flipKey={cards.length}>
     <ul className={css.cards_list}>
       {cards.map(card => (
-        <Flipped
-          flipId={card.id}
-          key={card.id}
-          className={css.cards_item}
-        >
-          <li>
+        <li className={css.cards_item} key={card.id}>
+          <Flipped flipId={card.id.toString()}>
             {renderCard(card)}
-          </li>
-        </Flipped>
+          </Flipped>
+        </li>
       ))}
     </ul>
   </Flipper>
