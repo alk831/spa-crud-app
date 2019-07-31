@@ -8,6 +8,7 @@ import { Deck } from '../../components/SwipeableCards';
 import { Heading } from '../../components/Heading';
 import { Card } from '../../components/Card';
 import { useCardsFetcher } from '../../common/hooks';
+import { CardPlaceholder } from '../../components/Placeholders';
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export const Home = () => {
 
   const result = () => {
     if (isLoading) {
-      return 'Trwa ładowanie...';
+      return <CardPlaceholder />;
     }
     if (isDataOver) {
       return (

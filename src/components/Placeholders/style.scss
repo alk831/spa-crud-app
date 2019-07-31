@@ -1,13 +1,31 @@
+@import "../../assets/css/index.scss";
 
-$background: #EEEEEE;
 $max-length: 8;
 
+%animated-element {
+  position: relative;
+  overflow: hidden;
+  &:after {
+    position: absolute;
+    content: "";
+    width: 35%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgb(221, 221, 221),
+      transparent
+    );
+    opacity: 0.8;
+    animation: move 1.1s linear infinite;
+  }
+}
+
 .row_container {
+  $background: #EEEEEE;
   min-width: 100%;
   height: 40px;
   border-radius: 5px;
-  background-color: #EEEEEE;
-  background-color: rgb(240, 240, 240);
   padding: 0;
   list-style-type: none;
   margin: 0 0 20px 0;
@@ -33,7 +51,7 @@ $max-length: 8;
   &:after {
     position: absolute;
     content: "";
-    width: 30%;
+    width: 35%;
     height: 100%;
     background: linear-gradient(
       to right,
@@ -41,13 +59,30 @@ $max-length: 8;
       rgb(223, 213, 213),
       transparent
     );
+    opacity: 0.8;
     animation: move 1.1s linear infinite;
   }
+  @extend %animated-element;
 }
 
 .list_container {
   margin: 0;
   padding: 0;
+}
+
+.card_container {
+  border-radius: 5px;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  max-width: 550px;
+  max-height: 430px;
+  box-shadow: 0 5px 20px 0 rgb(194, 193, 193);
+  @include small {
+    max-height: 350px;
+  }
+  margin: 40px;
+  @extend %animated-element;
 }
 
 @keyframes move {

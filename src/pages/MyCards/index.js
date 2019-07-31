@@ -6,6 +6,7 @@ import { useCardsFetcher } from '../../common/hooks';
 import { Helmet } from 'react-helmet';
 import { Card } from '../../components/Card';
 import { Heading } from '../../components/Heading';
+import { CardPlaceholder }  from '../../components/Placeholders';
 
 export const MyCards = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export const MyCards = () => {
 
   const result = () => {
     if (isLoading) {
-      return 'Trwa ładowanie...';
+      return <CardPlaceholder />;
     }
     if (isDataOver) {
       return 'Nie znaleziono więcej';
