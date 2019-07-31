@@ -1,9 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import css from './style.scss';
 import * as Actions from '../../store/actions';
 import { Helmet } from 'react-helmet';
-import { Deck } from '../../components/SwipeableCards';
 import { Heading } from '../../components/Heading';
 import { Card } from '../../components/Card';
 import { useCardsFetcher } from '../../common/hooks';
