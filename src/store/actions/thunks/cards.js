@@ -5,29 +5,36 @@ import {
   cardsFetchRequested,
   cardsLikedRemoved,
   cardsFetchMoreSucceeded,
+  cardsFetchMoreRequested,
 } from '../creators';
 import axios from 'axios';
 import { parseCardsTarget } from '../../../common/utils';
 
-export const cardsFetchRequest = (target) => async (dispatch) => {
+export const cardsFetchRequest = (target, page = 1) => async (dispatch) => {
   try {
     dispatch(cardsFetchRequested());
     const parsedTarget = parseCardsTarget(target);
 
-    const { data: { data }} = await axios(`/cards/${parsedTarget}`);
-    dispatch(cardsFetchSucceeded(data, target));
+    const { data: { data, ...pagination }} = await axios(
+      `/cards/${parsedTarget}?page=${page}`
+    );
+
+    dispatch(cardsFetchSucceeded(data, target, pagination));
+    const isLastPage = pagination.count === 0;
+    
+    return isLastPage;
 
   } catch(error) {
     dispatch(appRequestFailed(error));
   }
 }
 
-export const cardsFetchRequestMore = (target) => async (dispatch, getState) => {
-  const parsedTarget = parseCardsTarget(target);
-  const { page } = getState().cards;
-  const nextPage = page + 1;
+export const cardsFetchMoreRequest = (target, page = 1) => async (dispatch, getState) => {
+  dispatch(cardsFetchMoreRequested());
 
-  const { data: { data }} = await axios(`/cards/${parsedTarget}?page=${nextPage}`);
+  const parsedTarget = parseCardsTarget(target);
+  const { data: { data }} = await axios(`/cards/${parsedTarget}?page=${page}`);
+
   dispatch(cardsFetchMoreSucceeded(data, target));
 }
 

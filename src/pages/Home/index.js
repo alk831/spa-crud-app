@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import css from './style.scss';
 import * as Actions from '../../store/actions';
 import { Helmet } from 'react-helmet';
@@ -7,23 +7,16 @@ import { Helmet } from 'react-helmet';
 import { Deck } from '../../components/SwipeableCards';
 import { Heading } from '../../components/Heading';
 import { Card } from '../../components/Card';
-
+import { useCardsFetcher } from '../../common/hooks';
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.cards.isLoading);
-  const popularCards = useSelector(state => state.cards.popular);
-  const cardsAreAvailable = !!popularCards.length;
+  const {
+    data,
+    isLoading,
+    isDataEmpty,
+  } = useCardsFetcher('popular');
 
-  useEffect(() => {
-    dispatch(Actions.cardsFetchRequest('popular'))
-  }, []);
-
-  useEffect(() => {
-    if (!isLoading && popularCards.length === 0) {
-      dispatch(Actions.cardsFetchRequestMore('popular'));
-    }
-  }, [popularCards]);
 
   const handleCardLike = (card) => {
     dispatch(Actions.cardsPopularLike(card));
@@ -47,21 +40,21 @@ export const Home = () => {
           title="Przegladaj karty"
           paragraph="Przesuwaj karty aby je polubić lub pominąć"
         />
-        <Deck cards={popularCards} />
+        <Deck cards={data} />
       </section>
       <section className={css.section}>
         <Heading
           title="Najpopularniejsze karty"
           paragraph="Karty z największą ilością polubień"
         />
-        {!cardsAreAvailable && (
+        {isDataEmpty && (
           <p className={css.not_found_message}>
             Nie znaleziono więcej kart.
           </p>
         )}
-        {cardsAreAvailable && (
+        {!isDataEmpty && (
           <ul className={css.cards_list}>
-            {popularCards.map(card => (
+            {data.map(card => (
               <li
                 className={css.cards_item}
                 key={card.id}

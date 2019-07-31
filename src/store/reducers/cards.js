@@ -6,11 +6,12 @@ import {
   CARDS_POPULAR_SKIPPED,
   CARDS_LIKED_REMOVED,
   CARD_LIKED,
+  CARDS_FETCH_MORE_REQUESTED,
 } from '../consts';
 
 const initialState = {
-  isLoading: true,
-  page: 1,
+  isLoading: false,
+  isLastPage: false,
   popular: [],
   liked: []
 }
@@ -20,8 +21,13 @@ export function cardsReducer(
   action
 ) {
   switch(action.type) {
+    case CARDS_FETCH_MORE_REQUESTED: return {
+      ...state,
+      isLoading: true
+    }
     case CARDS_FETCH_REQUESTED: return {
       ...state,
+      isLastPage: false,
       isLoading: true,
       page: action.meta
         ? action.meta.page
@@ -30,6 +36,7 @@ export function cardsReducer(
     case CARDS_FETCH_SUCCEEDED: return {
       ...state,
       [action.meta.target]: action.payload,
+      isLastPage: action.meta.pagination.count === 0,
       isLoading: false
     }
     case CARDS_MORE_FETCH_SUCCEEDED: return {

@@ -23,10 +23,10 @@ export const cardsFetchFailed = (error) => ({
   error
 });
 
-export const cardsFetchSucceeded = (payload, target) => ({
+export const cardsFetchSucceeded = (payload, target, pagination) => ({
   type: CARDS_FETCH_SUCCEEDED,
   payload,
-  meta: { target }
+  meta: { target, pagination }
 });
 
 export const cardsFetchMoreSucceeded = (payload, target) => ({
@@ -43,4 +43,9 @@ export const cardsPopularSkipped = (cardId) => ({
 export const cardsPopularLiked = (cardId) => ({
   type: CARDS_POPULAR_LIKED,
   meta: { id: cardId }
+});
+
+
+export const cardsFetchMoreRequested = () => ({
+  type: CARDS_FETCH_REQUESTED
 });
