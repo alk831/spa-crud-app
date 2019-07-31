@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from '../../store/actions';
 
 const firstPage = 1;
+let afterFirstFetch = false;
 
 export function useCardsFetcher(target) {
   const [page, setPage] = useState(firstPage);
@@ -30,7 +31,10 @@ export function useCardsFetcher(target) {
 
   useEffect(() => {
     if (page === firstPage) {
-      fetchCards();
+      if (!afterFirstFetch) {
+        fetchCards();
+        afterFirstFetch = true;
+      }
     } else if (isDataEmpty && page > firstPage) {
       fetchCards();
     }
