@@ -1,7 +1,8 @@
 import 'react-hot-loader';
+import './assets/css/global.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App, AppWithHMR } from './App';
+import App from './App';
 import { Provider } from 'react-redux';
 import { configureStore } from './store/store';
 import axios from 'axios';
@@ -10,16 +11,16 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 
 const store = configureStore();
-const tenSeconds = 1000 * 10;
+const twentySeconds = 1000 * 20;
 
 axios.defaults.baseURL = HOST;
 axios.defaults.withCredentials = true;
-axios.defaults.timeout = tenSeconds;
+axios.defaults.timeout = twentySeconds;
 
 dayjs.locale('pl');
 
 ReactDOM.render((
   <Provider store={store}>
-    <AppWithHMR />
+    <App />
   </Provider>
 ), document.getElementById('app'));

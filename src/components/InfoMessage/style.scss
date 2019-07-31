@@ -1,0 +1,9 @@
+
+.container {
+  margin-top: 150px;
+  font-size: 18px;
+  text-align: center;
+  &.theme-error {
+    color: rgb(156, 59, 59);
+  }
+}

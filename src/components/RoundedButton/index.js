@@ -21,5 +21,6 @@ export const RoundedButton = ({
 );
 
 RoundedButton.propTypes = {
-  mode: PropTypes.oneOf(['like', 'skip'])
+  mode: PropTypes.oneOf(['like', 'skip']),
+  className: PropTypes.string,
 }

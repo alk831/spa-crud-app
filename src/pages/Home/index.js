@@ -1,26 +1,21 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import css from './style.scss';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import * as Actions from '../../store/actions';
-
-import { SwipeableCard } from '../../components/SwipeableCard';
-import { Deck } from '../../components/SwipeableCards';
+import { Helmet } from 'react-helmet';
 import { Heading } from '../../components/Heading';
-
+import { Card } from '../../components/Card';
+import { useCardsFetcher } from '../../common/hooks';
+import { CardPlaceholder } from '../../components/Placeholders';
+import { CardsList } from '../../components/CardsList';
+import { InfoMessage } from '../../components/InfoMessage';
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.cards.isLoading);
-  const popularCards = useSelector(state => state.cards.popular);
-
-  useEffect(() => {
-    dispatch(Actions.cardsFetchRequest('popular'))
-  }, []);
-  useEffect(() => {
-    if (!isLoading && popularCards.length === 0) {
-      dispatch(Actions.cardsFetchRequestMore('popular'));
-    }
-  }, [popularCards]);
+  const {
+    data,
+    isLoading,
+    isDataOver,
+  } = useCardsFetcher('popular');
 
   const handleCardLike = (card) => {
     dispatch(Actions.cardsPopularLike(card));
@@ -30,41 +25,37 @@ export const Home = () => {
     dispatch(Actions.cardsPopularSkipped(cardId));
   }
 
-  if (isLoading) {
-    return 'Trwa ładowanie...';
+  const result = () => {
+    if (isLoading) {
+      return <CardPlaceholder />;
+    }
+    if (isDataOver) {
+      return <InfoMessage text="Nie znaleziono więcej kart" />;
+    }
+    return (
+      <CardsList
+        cards={data}
+        renderCard={card => (
+          <Card
+            card={card}
+            onLiked={() => handleCardLike(card)}
+            onSkipped={() => handleCardSkip(card.id)}
+          />
+        )}
+      />
+    );
   }
 
   return (
     <>
-      <section className={css.section}>
-        <Heading
-          title="Przegladaj karty"
-          paragraph="Przesuwaj karty aby je polubić lub pominąć"
-        />
-        <Deck cards={popularCards} />
-      </section>
-      <section className={css.section}>
-        <Heading
-          title="Najpopularniejsze karty"
-          paragraph="Karty z największą ilością polubień"
-        />
-        <ul className={css.cards_list}>
-          {popularCards.map(card => (
-            <li
-              className={css.cards_item}
-              key={card.id}
-              data-testid="Home__cards-list"
-            >
-              <SwipeableCard
-                card={card}
-                onLiked={() => handleCardLike(card)}
-                onSkipped={() => handleCardSkip(card.id)}
-                data-testid="Home__cards-item"
-              />
-            </li>
-          ))}
-        </ul>
-      </section>
+      <Helmet>
+        <title>Strona główna</title>
+      </Helmet>
+      <Heading
+        title="Najpopularniejsze karty"
+        paragraph="Karty z największą ilością polubień"
+      />
+      {result()}
     </>
   );
 }

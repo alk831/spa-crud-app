@@ -7,6 +7,8 @@
   box-shadow: 0 10px 10px 0 $card-shadow-color;
   width: $card-width;
   height: $card-height;
+  max-width: $card-width;
+  max-height: $card-height;
   position: relative;
   margin: 0;
   box-sizing: border-box;
@@ -33,8 +35,12 @@
     }
   }
   @include phone {
-    width: 450px;
-    height: 350px;
+    max-width: 450px;
+    max-height: 350px;
+  }
+  @include small {
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -55,8 +61,6 @@
   width: 100%;
   border-radius: $card-border-radius;
   user-select: none;
-  -webkit-user-drag: none;
-  user-drag: none;
   position: relative;
 }
 
@@ -66,7 +70,7 @@
   height: 100%;
   content: "";
   background: linear-gradient(to top, #fff, transparent);
-  z-index: $z-card-info;
+  z-index: $z_card-info;
   box-sizing: border-box;
   top: 0;
   left: 0;

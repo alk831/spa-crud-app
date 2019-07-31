@@ -22,3 +22,8 @@ export const ListPlaceholder = ({
     )))}
   </ul>
 );
+
+export const CardPlaceholder = () => (
+  <div className={css.card_container}>
+  </div>
+);

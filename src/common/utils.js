@@ -1,3 +1,5 @@
+import { AUTH_DATA } from './consts';
+
 let timeout;
 
 export const applyCss = (...classNames) => ({
@@ -12,7 +14,7 @@ export const debounce = (fn, delay = 250) => {
 }
 
 export const getAuthData = () => {
-  const authData = sessionStorage.getItem('auth-data');
+  const authData = sessionStorage.getItem(AUTH_DATA);
 
   if (authData) {
     const { user, ...data } = JSON.parse(authData);

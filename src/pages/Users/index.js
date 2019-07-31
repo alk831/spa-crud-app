@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import css from './style.scss';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import { usePermissionCheck } from '../../common/hooks';
+import { usePermissionsOf } from '../../common/hooks';
 import { debounce } from '../../common/utils';
-
+import { Helmet } from 'react-helmet';
 import { Table, Td, Tr, Th } from '../../components/Table';
 import { BasicInput } from '../../components/BasicInput';
 import { Heading } from '../../components/Heading';
@@ -13,7 +13,7 @@ import { ListPlaceholder } from '../../components/Placeholders';
 export const Users = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState([]);
-  const canEditPoints = usePermissionCheck('admin');
+  const canEditPoints = usePermissionsOf('admin');
 
   useEffect(() => {
     async function fetchUsers() {
@@ -41,6 +41,9 @@ export const Users = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Użytkownicy</title>
+      </Helmet>
       <Heading
         title="Użytkownicy"
       />

@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "test": "jest"
   },
   "repository": {
@@ -17,16 +19,16 @@
   "bugs": {
     "url": "https://github.com/alk831/spa-crud-app/issues"
   },
-  "homepage": "https://github.com/alk831/spa-crud-app#readme",
+  "homepage": "https://alk831.github.io/spa-crud-app/",
   "dependencies": {
     "axios": "^0.19.0",
     "dayjs": "^1.8.15",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-flip-toolkit": "^6.6.9",
+    "react-helmet": "^5.2.1",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
-    "react-spring": "^8.0.27",
-    "react-use-gesture": "^5.1.3",
     "redux": "^4.0.3",
     "redux-thunk": "^2.3.0"
   },
@@ -42,6 +44,8 @@
     "babel-loader": "^8.0.6",
     "css-loader": "^3.0.0",
     "dotenv-webpack": "^1.7.0",
+    "file-loader": "^4.1.0",
+    "gh-pages": "^2.0.1",
     "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.8.0",

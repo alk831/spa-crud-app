@@ -1,6 +1,5 @@
 import React from 'react';
 import css from './style.scss';
-
 import { BasicButton } from '../BasicButton';
 import { BasicInput } from '../BasicInput';
 

@@ -1,16 +1,16 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { usePermissionCheck } from '../../common/hooks';
+import { usePermissionsOf } from '../../common/hooks';
 import PropTypes from 'prop-types';
 
 export const PrivateRoute = ({
   group: allowedGroup,
   strictGroup,
   component: Component,
-  redirectTo,
+  redirectTo = "/login",
   ...props
 }) => {
-  const hasPermissions = usePermissionCheck(allowedGroup, strictGroup);
+  const hasPermissions = usePermissionsOf(allowedGroup, strictGroup);
 
   return (
     <Route
@@ -36,5 +36,5 @@ PrivateRoute.propTypes = {
    */
   strictGroup: PropTypes.bool,
   /** Adress of the page that user will be redirected to, if He has no permissions. */
-  redirectTo: PropTypes.string.isRequired
+  redirectTo: PropTypes.string
 }

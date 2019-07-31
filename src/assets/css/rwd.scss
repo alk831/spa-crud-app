@@ -22,15 +22,8 @@
 	}
 }
 
-
-@mixin notPhone {
-  @media (min-width: 767px) {
-    @content;
-  }
-}
-
-@mixin notDesktop {
-  @media (min-width: 979px) {
-    @content;
-  }
+@mixin tablet-above {
+	@media (min-width: 979px) {
+		@content;
+	}
 }
