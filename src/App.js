@@ -2,7 +2,7 @@ import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { GROUP } from './common/consts';
+import { GROUP, isDevelopment } from './common/consts';
 import { Home } from './pages/Home';
 import { PrivateRoute } from './components/PrivateRoute';
 import { MyCards } from './pages/MyCards';
@@ -56,3 +56,4 @@ export const App = () => {
 }
 
 export const AppWithHMR = hot(App);
+export default isDevelopment ? AppWithHMR : App;

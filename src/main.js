@@ -2,7 +2,7 @@ import 'react-hot-loader';
 import './assets/css/global.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App, AppWithHMR } from './App';
+import App from './App';
 import { Provider } from 'react-redux';
 import { configureStore } from './store/store';
 import axios from 'axios';
@@ -21,6 +21,6 @@ dayjs.locale('pl');
 
 ReactDOM.render((
   <Provider store={store}>
-    <AppWithHMR />
+    <App />
   </Provider>
 ), document.getElementById('app'));
