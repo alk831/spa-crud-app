@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import HeartIcon from '../../assets/img/heart.svg';
 import NextIcon from '../../assets/img/next.svg';
 import { applyCss } from '../../common/utils';
-
 import { RoundedButton } from '../RoundedButton';
 
 export const Card = ({

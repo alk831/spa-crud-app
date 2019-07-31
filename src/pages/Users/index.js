@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import { usePermissionsOf } from '../../common/hooks';
 import { debounce } from '../../common/utils';
 import { Helmet } from 'react-helmet';
-
 import { Table, Td, Tr, Th } from '../../components/Table';
 import { BasicInput } from '../../components/BasicInput';
 import { Heading } from '../../components/Heading';

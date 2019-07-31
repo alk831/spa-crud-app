@@ -6,7 +6,6 @@ import css from './style.scss';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-
 import { Form, FormField } from '../../components/Form';
 
 const formData = {
@@ -77,8 +76,8 @@ const Authorization = ({ history, mode }) => {
       setIsLoading(true);
       await dispatch(Actions[actionName](email, password));
       history.push('/');
-    } catch(err) {
-      const { response = {} } = err;
+    } catch(error) {
+      const { response = {} } = error;
       const { status } = response;
 
       if (status === 401) {
