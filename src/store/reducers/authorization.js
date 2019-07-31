@@ -16,7 +16,7 @@ export const initialState = {
 const mergedState = {
   ...initialState,
   ...authData,
-  isLoggedIn: !!authData.user
+  isLoggedIn: (authData && authData.user) != null
 }
 
 export function authorizationReducer(

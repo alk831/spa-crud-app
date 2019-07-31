@@ -30,8 +30,7 @@ test('disliking cards works properly', async () => {
   fireEvent.mouseOver(firstCard);
   fireEvent.click(firstCardDislikeBtn);
 
-  expect(axiosMock).toHaveBeenCalledTimes(1);
-  expect(axiosMock).toHaveBeenCalledWith('/cards/favorite');
+  expect(axiosMock).toHaveBeenCalledWith('/cards/favorite?page=1');
   expect(axiosMock.delete).toHaveBeenCalledTimes(1);
   expect(axiosMock.delete).toHaveBeenCalledWith(`/cards/favorite/${firstCardData.id}`);
 });

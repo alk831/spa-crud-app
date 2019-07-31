@@ -9,8 +9,8 @@ import groupsMock from '../../__mocks__/permissionGroups';
 const secretMessage = 'Secret content';
 const unauthorizedMessage = 'You have no permissions to see secret content';
 
-function Component({ group = 'moderator', strict }) {
-  const isAllowed = usePermissionsOf(group, strict);
+function Component({ group = 'moderator', inheritance }) {
+  const isAllowed = usePermissionsOf(group, inheritance);
 
   return (
     <span data-testid="secret_message">
@@ -49,7 +49,7 @@ test('allows if user has equal or greater permissions', () => {
   expect(container.firstChild).toHaveTextContent(secretMessage);
 });
 
-test('does not allow when group is not equal to required - strict mode', () => {
+test('does not allow when group is not equal to required - inheritance disabled', () => {
   const store = configureStore({
     authorization: {
       ...initialState,
@@ -60,7 +60,7 @@ test('does not allow when group is not equal to required - strict mode', () => {
 
   const { container } = render(
     <Provider store={store}>
-      <Component group="moderator" strict />
+      <Component group="moderator" inheritance={false} />
     </Provider>
   );
   

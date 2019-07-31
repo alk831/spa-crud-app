@@ -7,7 +7,7 @@ import { App } from '../helpers';
 
 jest.mock('axios');
 
-test('liking cards works properly', async () => {
+test('likeing cards works properly', async () => {
   const [firstCardData] = cardsMock;
 
   axiosMock.mockImplementationOnce(() =>
@@ -23,15 +23,14 @@ test('liking cards works properly', async () => {
     </App>
   );
 
-  /* It catches items from cards deck  */
-  const [firstCard] = await findAllByTestId('Home__cards-item');
+  const [firstCard] = await findAllByTestId('Card');
   const [firstCardLikeBtn] = getAllByTitle('Polub'); 
 
   fireEvent.mouseOver(firstCard);
   fireEvent.click(firstCardLikeBtn);
 
-  expect(axiosMock).toHaveBeenCalledTimes(1);
-  expect(axiosMock).toHaveBeenCalledWith('/cards/popular');
+  expect(axiosMock).toHaveBeenCalledTimes(2);
+  expect(axiosMock).toHaveBeenCalledWith('/cards/popular?page=1');
   expect(axiosMock.post).toHaveBeenCalledTimes(1);
   expect(axiosMock.post).toHaveBeenCalledWith('/cards/favorite', firstCardData);
 });
@@ -50,12 +49,12 @@ test('skipping cards works properly', async () => {
     </App>
   );
 
-  const [firstCard] = await findAllByTestId('Home__cards-item');
+  const [firstCard] = await findAllByTestId('Card');
   const [firstCardSkipBtn] = getAllByTitle('Pomiń');
 
   fireEvent.mouseOver(firstCard);
   fireEvent.click(firstCardSkipBtn);
 
-  expect(axiosMock).toHaveBeenCalledTimes(1);
+  expect(axiosMock).toHaveBeenCalledTimes(2);
   expect(axiosMock.post).not.toHaveBeenCalled();
 });
