@@ -14,9 +14,8 @@ export const Home = () => {
   const {
     data,
     isLoading,
-    isDataEmpty,
+    isDataOver,
   } = useCardsFetcher('popular');
-
 
   const handleCardLike = (card) => {
     dispatch(Actions.cardsPopularLike(card));
@@ -26,8 +25,36 @@ export const Home = () => {
     dispatch(Actions.cardsPopularSkipped(cardId));
   }
 
-  if (isLoading) {
-    return 'Trwa ładowanie...';
+  const result = () => {
+    if (isLoading) {
+      return 'Trwa ładowanie...';
+    }
+    if (isDataOver) {
+      return (
+        <p className={css.not_found_message}>
+          Nie znaleziono więcej kart.
+        </p>
+      );
+    }
+
+    return (
+      <ul className={css.cards_list}>
+        {data.map(card => (
+          <li
+            className={css.cards_item}
+            key={card.id}
+            data-testid="Home__cards-list"
+          >
+            <Card
+              card={card}
+              onLiked={() => handleCardLike(card)}
+              onSkipped={() => handleCardSkip(card.id)}
+              data-testid="Home__cards-item"
+            />
+          </li>
+        ))}
+      </ul>
+    );
   }
 
   return (
@@ -47,29 +74,7 @@ export const Home = () => {
           title="Najpopularniejsze karty"
           paragraph="Karty z największą ilością polubień"
         />
-        {isDataEmpty && (
-          <p className={css.not_found_message}>
-            Nie znaleziono więcej kart.
-          </p>
-        )}
-        {!isDataEmpty && (
-          <ul className={css.cards_list}>
-            {data.map(card => (
-              <li
-                className={css.cards_item}
-                key={card.id}
-                data-testid="Home__cards-list"
-              >
-                <Card
-                  card={card}
-                  onLiked={() => handleCardLike(card)}
-                  onSkipped={() => handleCardSkip(card.id)}
-                  data-testid="Home__cards-item"
-                />
-              </li>
-            ))}
-          </ul>
-        )}
+        {result()}
       </section>
     </>
   );
