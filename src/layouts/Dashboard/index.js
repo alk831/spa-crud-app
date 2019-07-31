@@ -28,7 +28,8 @@ const dashboardLinks = [
 class Dashboard extends React.Component {
 
   static getDerivedStateFromError(error) {
-    return { error };
+    const { message } = error;
+    return { error: message };
   }
   
   constructor(props) {
@@ -66,8 +67,9 @@ class Dashboard extends React.Component {
   });
 
   render() {
-    const { error, filteredLinks } = this.state;
+    const { filteredLinks } = this.state;
     const { user } = this.props.authorization;
+    const error = this.state.error || this.props.appError;
 
     if (!this.state.hasPermissions) {
       return <Redirect to="/login" />;
@@ -82,7 +84,7 @@ class Dashboard extends React.Component {
         />
         <article className={css.content_container}>
           {error
-            ? <InfoMessage text={error.message} theme="error" />
+            ? <InfoMessage text={error} theme="error" />
             : this.props.children
           }
         </article>
@@ -92,7 +94,10 @@ class Dashboard extends React.Component {
 }
 
 const ConnectedDashboard = connect(
-  (state) => ({ authorization: state.authorization }),
+  (state) => ({
+    authorization: state.authorization,
+    appError: state.application.error
+  }),
   { authLogout }
 )(Dashboard);
 
