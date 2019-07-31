@@ -7,10 +7,12 @@ export const Table = ({
   thead,
   className,
 }) => (
-  <table {...applyCss(css.container, className)}>
-    {thead && <thead>{thead}</thead>}
-    {children}
-  </table>
+  <div {...applyCss(css.wrapper, className)}>
+    <table className={css.container}>
+      {thead && <thead>{thead}</thead>}
+      {children}
+    </table>
+  </div>
 );
 
 export const Thead = ({ children }) => (

@@ -2,11 +2,17 @@
 
 $padding-horizontal: 5px;
 
-.container {
+.wrapper {
+  overflow-x: auto;
   background: #fff;
   border-radius: 4px;
   padding: 15px;
+  margin: 100px auto;
   box-shadow: $card-shadow;
+}
+
+.container {
+  width: 100%;
 }
 
 .row {

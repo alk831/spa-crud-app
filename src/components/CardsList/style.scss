@@ -14,4 +14,7 @@
   @include phone {
     margin: 80px 15px;
   }
+  @include small {
+    margin: 80px 0;
+  }
 }
