@@ -46,6 +46,7 @@ export const Users = () => {
       </Helmet>
       <Heading
         title="Użytkownicy"
+        paragraph="Lista zarejestrowanych użytkowników"
       />
       <Table className={css.users_table}>
         <thead>

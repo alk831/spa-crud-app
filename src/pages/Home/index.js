@@ -52,8 +52,8 @@ export const Home = () => {
         <title>Strona główna</title>
       </Helmet>
       <Heading
-        title="Najpopularniejsze karty"
-        paragraph="Karty z największą ilością polubień"
+        title="Przeglądaj karty"
+        paragraph="Pomijaj lub dodawaj karty do ulubionych"
       />
       {result()}
     </>

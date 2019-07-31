@@ -39,7 +39,7 @@ export function useCardsFetcher(target) {
     ) {
       fetchCards();
     }
-  }, [page, isDataEmpty]);
+  }, [page, isDataEmpty, afterFirstRender]);
 
   return {
     data: cardsData,
