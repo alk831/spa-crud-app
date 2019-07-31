@@ -13,10 +13,12 @@ export const Home = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.cards.isLoading);
   const popularCards = useSelector(state => state.cards.popular);
+  const cardsAreAvailable = !!popularCards.length;
 
   useEffect(() => {
     dispatch(Actions.cardsFetchRequest('popular'))
   }, []);
+
   useEffect(() => {
     if (!isLoading && popularCards.length === 0) {
       dispatch(Actions.cardsFetchRequestMore('popular'));
@@ -52,22 +54,29 @@ export const Home = () => {
           title="Najpopularniejsze karty"
           paragraph="Karty z największą ilością polubień"
         />
-        <ul className={css.cards_list}>
-          {popularCards.map(card => (
-            <li
-              className={css.cards_item}
-              key={card.id}
-              data-testid="Home__cards-list"
-            >
-              <Card
-                card={card}
-                onLiked={() => handleCardLike(card)}
-                onSkipped={() => handleCardSkip(card.id)}
-                data-testid="Home__cards-item"
-              />
-            </li>
-          ))}
-        </ul>
+        {!cardsAreAvailable && (
+          <p className={css.not_found_message}>
+            Nie znaleziono więcej kart.
+          </p>
+        )}
+        {cardsAreAvailable && (
+          <ul className={css.cards_list}>
+            {popularCards.map(card => (
+              <li
+                className={css.cards_item}
+                key={card.id}
+                data-testid="Home__cards-list"
+              >
+                <Card
+                  card={card}
+                  onLiked={() => handleCardLike(card)}
+                  onSkipped={() => handleCardSkip(card.id)}
+                  data-testid="Home__cards-item"
+                />
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </>
   );
